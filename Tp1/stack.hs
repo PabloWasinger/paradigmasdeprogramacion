@@ -25,7 +25,7 @@ netS :: Stack -> Int                          -- responde el peso neto de los co
 netS (Sta xs n) = sum (listaP xs)
 
 holdsS :: Stack -> Container -> Route -> Bool -- indica si la pila puede aceptar el contenedor considerando las ciudades en la ruta
-holdsS s c r = True -- HACER
+holdsS (Sta conts i) container ruta = inOrderR ruta (destinationC container) (destinationC (last conts)) -- CHEQUEAR
 
 
 listaD :: [Container] -> String -> Int               -- Recibe una lista de containers y devuelve un int que refiere a la cantidad de containers a quitar

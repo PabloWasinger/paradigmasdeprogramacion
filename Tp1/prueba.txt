@@ -1,5 +1,8 @@
 formato Stack:
-(Sta [(Con "CiudadB" 1), (Con "CiudadB" 2), (Con "CiudadA" 3), (Con "CiudadA" 4)] 4)
+(Sta [("CiudadB" 1), ("CiudadB" 2), ("CiudadA" 3), ("CiudadA" 4)] 6)
 
 formato container:
-(Con "CiudadA" 4)
+("CiudadC" 4)
+
+formato ruta:
+["CiudadC","CiudadB","CiudadA"]
