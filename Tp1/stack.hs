@@ -1,14 +1,10 @@
 module Stack ( Stack,newS, freeCellsS, stackS, netS, holdsS, popS )
  where
 
---import Route
---import Container
+import Route
+import Container
 
-
-data Container = Con String Int deriving (Eq, Show)
 data Stack = Sta [ Container ] Int deriving (Eq, Show)
-data Route = Rou [ String ] deriving (Eq, Show)
-
 
 
 newS :: Int -> Stack                          -- construye una Pila con la capacidad indicada 
@@ -18,14 +14,11 @@ freeCellsS :: Stack -> Int                    -- responde la celdas disponibles 
 freeCellsS (Sta xs x) = x - length xs 
 
 stackS :: Stack -> Container -> Stack         -- apila el contenedor indicado en la pila
-stackS (Sta xs n) (Con s i) = Sta (xs ++ [Con s i]) n
+stackS (Sta xs n) c = Sta (xs ++ [c]) n
 
 
 listaP :: [Container] -> [Int]                -- Recibe una lista de containers y devuelve una lista con los pesos de cada container
-listaP xs = [peso y|y<-xs]
-
-peso :: Container -> Int                      -- Recibe un container y devuelve su peso
-peso (Con s i) = i
+listaP xs = [netC y|y<-xs]
 
 netS :: Stack -> Int                          -- responde el peso neto de los contenedores en la pila
 netS (Sta xs n) = sum (listaP xs)
@@ -35,10 +28,8 @@ holdsS s c r = True -- HACER
 
 
 listaD :: [Container] -> String -> Int               -- Recibe una lista de containers y devuelve un int que refiere a la cantidad de containers a quitar
-listaD xs s = length xs - length [destino y|y<-xs, destino y == s]
+listaD xs s = length xs - length [destinationC y|y<-xs, destinationC y == s]
 
-destino :: Container -> String                      -- Recibe un container y devuelve su destino
-destino (Con s i) = s
 
 nuevaLista :: [Container] -> String -> [Container]
 nuevaLista xs s = take (listaD xs s) xs
