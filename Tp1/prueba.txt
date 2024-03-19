@@ -6,3 +6,6 @@ formato container:
 
 formato ruta:
 ["CiudadC","CiudadB","CiudadA"]
+
+newV:
+newV 4 10 (newR ["CiudadA", "CiudadB"])

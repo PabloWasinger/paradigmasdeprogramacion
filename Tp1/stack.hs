@@ -32,11 +32,11 @@ listaD :: [Container] -> String -> Int               -- Recibe una lista de cont
 listaD xs s = length xs - length [destinationC y|y<-xs, destinationC y == s]
 
 
-nuevaLista :: [Container] -> String -> [Container]
+nuevaLista :: [Container] -> String -> [Container] -- Elimina los ultimos containers con la ciudad indicada de la lista
 nuevaLista xs s = take (listaD xs s) xs
 
 popS :: Stack -> String -> Stack              -- quita del tope los contenedores con destino en la ciudad indicada
-popS (Sta xs i) s = (Sta (nuevaLista xs s) i)
+popS (Sta xs i) s = Sta (nuevaLista xs s) i
 
 
 
