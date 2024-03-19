@@ -9,7 +9,7 @@ data Stack = Sta [ Container ] Int deriving (Eq, Show)
 
 
 newS :: Int -> Stack                          -- construye una Pila con la capacidad indicada 
-newS x = Sta [] x
+newS x = Sta [(newC "CiudadC" 4), (newC "CiudadC" 4)] x
 
 freeCellsS :: Stack -> Int                    -- responde la celdas disponibles en la pila
 freeCellsS (Sta xs x) = x - length xs 
@@ -37,6 +37,7 @@ nuevaLista xs s = take (listaD xs s) xs
 
 popS :: Stack -> String -> Stack              -- quita del tope los contenedores con destino en la ciudad indicada
 popS (Sta xs i) s = Sta (nuevaLista xs s) i
+
 
 
 
