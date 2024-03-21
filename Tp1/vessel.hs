@@ -9,14 +9,9 @@ import Data.ByteString (elemIndex)
 data Vessel = Ves [ Stack ] Route deriving (Eq, Show)
 
 
-
-createC :: Int -> Int -> [Stack]          -- Crea una lista con la cantidad de bahías indicadas y su altura respectiva
-createC altura cantidad = [newS altura|y <- [1..cantidad]]
-                        
-
-
 newV :: Int -> Int -> Route -> Vessel  -- construye un barco según una cantida de bahias, la altura de las mismas y una ruta
-newV cantidad altura ruta = Ves (createC altura cantidad) ruta
+newV cantidad altura ruta | cantidad <= 0 || altura <= 0 = error "La altura y cantidad de las bahías deben ser mayores a 0"
+                          | otherwise =  Ves [newS altura|y <- [1..cantidad]] ruta
 
 
 freeCellsV :: Vessel -> Int            -- responde la celdas disponibles en el barco
@@ -29,7 +24,7 @@ maxWeight stack container = (netS stack) + (netC container) < 20
 
 pickS :: [Stack] -> Int -> Container -> Route -> Int               -- devuelve el indice del stack en el que pondremos el contenedor
 pickS stacks num container route | num > length stacks - 1 = error "No hay bahías disponibles para este container"
-                           |(maxWeight (stacks !! num) container) && (holdsS (stacks !! num) container route)&& (freeCellsS (stacks !! num) /= 0) = num
+                           |(maxWeight (stacks !! num) container) && (holdsS (stacks !! num) container route ) = num
                            |otherwise = pickS stacks (num + 1) container route
 
 

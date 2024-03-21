@@ -46,3 +46,4 @@ testF action = unsafePerformIO $ do
     where
         isException :: SomeException -> Maybe ()
         isException _ = Just ()
+

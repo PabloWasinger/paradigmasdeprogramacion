@@ -9,13 +9,15 @@ data Stack = Sta [ Container ] Int deriving (Eq, Show)
 
 
 newS :: Int -> Stack                          -- construye una Pila con la capacidad indicada 
-newS x = Sta [(newC "CiudadC" 4), (newC "CiudadC" 4)] x
+newS x | x <= 0 = error "La pila tiene que tener capacidad mayor a 0" 
+       |otherwise = Sta [] x
 
 freeCellsS :: Stack -> Int                    -- responde la celdas disponibles en la pila
-freeCellsS (Sta xs x) = x - length xs 
+freeCellsS (Sta xs x) = x - length xs
 
 stackS :: Stack -> Container -> Stack         -- apila el contenedor indicado en la pila
-stackS (Sta xs n) c = Sta (xs ++ [c]) n
+stackS (Sta xs n) c  | freeCellsS (Sta xs n) /= 0 = Sta (xs ++ [c]) n
+                     |otherwise = error "No hay lugar en la pila"
 
 
 listaP :: [Container] -> [Int]                -- Recibe una lista de containers y devuelve una lista con los pesos de cada container
@@ -25,7 +27,7 @@ netS :: Stack -> Int                          -- responde el peso neto de los co
 netS (Sta xs n) = sum (listaP xs)
 
 holdsS :: Stack -> Container -> Route -> Bool -- indica si la pila puede aceptar el contenedor considerando las ciudades en la ruta
-holdsS (Sta conts i) container ruta = inOrderR ruta (destinationC container) (destinationC (last conts)) -- CHEQUEAR
+holdsS (Sta conts i) container ruta = inOrderR ruta (destinationC container) (destinationC (last conts))
 
 
 listaD :: [Container] -> String -> Int               -- Recibe una lista de containers y devuelve un int que refiere a la cantidad de containers a quitar
