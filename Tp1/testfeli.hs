@@ -63,11 +63,16 @@ barcosincont4 = unloadV barcosinlugar bhi
 
 testVessel = [
     not (testF (newV 1 1 ruta)),
-    testF (newV 0 1 ruta),
-    testF (newV 1 0 ruta),
+    testF (newV 0 1 ruta),                -- Chequea que no se pueda crear un barco con 0 bahías
+    testF (newV (-1) 2 ruta),               -- Chequea que no se pueda crear un barco con bahías negativas
+    testF (newV 1 0 ruta),                -- Chequea que no se pueda crear un barco con bahías de altura 0
+    testF (newV 1 (-1) ruta),               -- Chequea que no se pueda crear un barco con bahías de altura negativa
     testF (loadV barco1stackLleno cont5), --daa false pero tira el error bien
     not (testF (loadV barco2altura cont2)),
     testF (netV(loadV barco1lugarlibre cont3)), --da false pero tira el error bien
     netV barcosinlugar == 10,             --me fijo si el peso del barco es igual a la suma del peso de los containers
     netV barcosincont4 == 5,              --chequea si el barco se descargo bien
+    freeCellsV barco1stackLleno /= freeCellsV (unloadV barco1stackLleno bhi),  -- Chequea que efectivamente, la función unloadV descargue un contenedor en la ciudad correcta
+    --llamar unloadv a barco vacío
+    --llamar unloadv a container inexistente
     True] 

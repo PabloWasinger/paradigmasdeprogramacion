@@ -40,11 +40,6 @@ testContainer = [
     testF (newC qeq 25),                --"Crear Container con peso > 20"
     testF (newC bhi (-5)),                --testCase "Crear Container con peso < 0"
     testF (newC bue 0),                 --testCase "Crear Container con peso = 0"
-    
     True]
 
-testRuta = [
-    not (testF newR [ bhi, qeq, mdq, bue, rsl ]),                            --chequea si la ruta se creo bien (si no tira error)
-
-True]
 
