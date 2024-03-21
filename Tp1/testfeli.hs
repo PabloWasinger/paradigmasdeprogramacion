@@ -78,3 +78,6 @@ testVessel = [
     freeCellsV barco1stackLleno /= freeCellsV (unloadV barco1stackLleno bhi),  -- Chequea que efectivamente, la función unloadV descargue un contenedor en la ciudad correcta
     --llamar unloadv a barco vacío
     --llamar unloadv a container inexistente
+    -- unloadv para 3 stacks, 2 ciudades iguales y una distinta
+    -- loadV para uno de qeq y luego uno de bhi y luego rsl 3 stacks de 3 altura asheieieieieiie
+    ]
