@@ -23,7 +23,7 @@ maxWeight stack container = (netS stack) + (netC container) < 20
 
 
 pickS :: [Stack] -> Int -> Container -> Route -> Int               -- devuelve el indice del stack en el que pondremos el contenedor
-pickS stacks num container route | num > length stacks - 1 = error "No hay bahías disponibles para este container"
+pickS stacks num container route | num > length stacks - 1 = -1
                            |(maxWeight (stacks !! num) container) && (holdsS (stacks !! num) container route ) = num
                            |otherwise = pickS stacks (num + 1) container route
 
@@ -32,7 +32,8 @@ listaS :: [Stack] -> Int -> Container -> [Stack]       -- Crea una nueva lista d
 listaS stacks num con = take num stacks ++ [stackS (stacks !! num) con] ++ drop (num + 1) stacks
 
 loadV :: Vessel -> Container -> Vessel -- carga un contenedor en el barco
-loadV (Ves stacks r) container = Ves (listaS stacks (pickS stacks 0 container r) container) r
+loadV (Ves stacks r) container | pickS
+= Ves (listaS stacks (pickS stacks 0 container r) container) r
 
 unloadV :: Vessel -> String -> Vessel  -- responde un barco al que se le han descargado los contenedores que podían descargarse en la ciudad
 unloadV (Ves stacks r) ciudad = Ves [popS y ciudad|y <- stacks] r
