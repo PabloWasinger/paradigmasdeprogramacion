@@ -1,5 +1,5 @@
 --mport Test.HUnit
-import Container (Container(..), newC, destinationC)
+import Container 
 import Stack
 import Vessel
 import Route
@@ -30,7 +30,7 @@ ruta = newR [ bhi, qeq, mdq, bue, rsl ]
 
 
 cont1 = newC mdq 20
-cont2 = newC rsl 5
+cont2 = newC rsl 7
 cont3 = newC bhi 18
 cont4 = newC bhi 5
 cont5 = newC qeq 17
@@ -42,6 +42,7 @@ testContainer = [
     testF (newC bhi (-5)),              --testCase "Crear Container con peso < 0"
     testF (newC bue 0),                 --testCase "Crear Container con peso = 0"
     destinationC cont5 == qeq,          --teste
+    netC cont5 == 17,
     
     True]
 
@@ -59,7 +60,8 @@ barco2altura = newV 1 2 ruta
 barco1lugarlibre = loadV barco2altura cont2
 barcosinlugar = loadV barco1lugarlibre cont4
 barcosincont4 = unloadV barcosinlugar bhi
-
+barco3cell = newV 1 3 ruta
+barco2cell = loadV barco3cell cont4
 
 testVessel = [
     not (testF (newV 1 1 ruta)),
@@ -67,12 +69,12 @@ testVessel = [
     testF (newV (-1) 2 ruta),               -- Chequea que no se pueda crear un barco con bahías negativas
     testF (newV 1 0 ruta),                -- Chequea que no se pueda crear un barco con bahías de altura 0
     testF (newV 1 (-1) ruta),               -- Chequea que no se pueda crear un barco con bahías de altura negativa
-    testF (loadV barco1stackLleno cont5), --daa false pero tira el error bien
+    testF (loadV barco1stackLleno cont5), --stack lleno
     not (testF (loadV barco2altura cont2)),
-    testF (netV(loadV barco1lugarlibre cont3)), --da false pero tira el error bien
-    netV barcosinlugar == 10,             --me fijo si el peso del barco es igual a la suma del peso de los containers
-    netV barcosincont4 == 5,              --chequea si el barco se descargo bien
+    testF (netV(loadV barco1lugarlibre cont3)), --se pasa de peso
+    netV barcosinlugar == 12,             --me fijo si el peso del barco es igual a la suma del peso de los containers
+    netV barcosincont4 == 7,              --chequea si el barco se descargo bien SUFICIENTE?
+    freeCellsV barco2cell == 2,           --chequea si el barco se descargo bien
     freeCellsV barco1stackLleno /= freeCellsV (unloadV barco1stackLleno bhi),  -- Chequea que efectivamente, la función unloadV descargue un contenedor en la ciudad correcta
     --llamar unloadv a barco vacío
     --llamar unloadv a container inexistente
-    True] 
