@@ -26,7 +26,7 @@ netS (Sta xs n) = sum (map netC xs)
 
 holdsS :: Stack -> Container -> Route -> Bool -- indica si la pila puede aceptar el contenedor considerando las ciudades en la ruta
 holdsS (Sta conts i) container ruta | length conts == 0 = True
-                                    | otherExecuteMode = inOrderR ruta (destinationC container) (destinationC (last conts))
+                                    | otherwise = inOrderR ruta (destinationC container) (destinationC (last conts))
 
 
 listaD :: [Container] -> String -> Int               -- Recibe una lista de containers y devuelve un int que refiere a la cantidad de containers a quitar
