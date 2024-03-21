@@ -18,13 +18,18 @@ freeCellsV :: Vessel -> Int            -- responde la celdas disponibles en el b
 freeCellsV (Ves stacks ruta)  = sum (map freeCellsS stacks)
 
 
-maxWeight :: Stack -> Container -> Bool                  -- Se fija si el stack más el nuevo container excede el peso máximo
-maxWeight stack container = (netS stack) + (netC container) < 20
+{-maxWeight :: Stack -> Container -> Bool                  -- Se fija si el stack más el nuevo container excede el peso máximo
+maxWeight stack container = (netS stack) + (netC container) <= 20-}
 
+
+{-pickS :: [Stack] -> Int -> Container -> Route -> Int               -- devuelve el indice del stack en el que pondremos el contenedor
+pickS stacks num container route | num > length stacks - 1 = error "No hay bahías disponibles para este container"
+                           |(maxWeight (stacks !! num) container) && (holdsS (stacks !! num) container route ) = num
+                           |otherwise = pickS stacks (num + 1) container route-}
 
 pickS :: [Stack] -> Int -> Container -> Route -> Int               -- devuelve el indice del stack en el que pondremos el contenedor
 pickS stacks num container route | num > length stacks - 1 = error "No hay bahías disponibles para este container"
-                           |(maxWeight (stacks !! num) container) && (holdsS (stacks !! num) container route ) = num
+                           |holdsS (stacks !! num) container route = num
                            |otherwise = pickS stacks (num + 1) container route
 
 
@@ -32,7 +37,7 @@ listaS :: [Stack] -> Int -> Container -> [Stack]       -- Crea una nueva lista d
 listaS stacks num con = take num stacks ++ [stackS (stacks !! num) con] ++ drop (num + 1) stacks
 
 loadV :: Vessel -> Container -> Vessel -- carga un contenedor en el barco
-loadV (Ves stacks r) container = Ves (listaS stacks (pickS stacks 0 container r) container) r
+loadV (Ves stacks r) container = Ves (listaS stacks (pickS stacks 0 container r) container) r 
 
 unloadV :: Vessel -> String -> Vessel  -- responde un barco al que se le han descargado los contenedores que podían descargarse en la ciudad
 unloadV (Ves stacks r) ciudad = Ves [popS y ciudad|y <- stacks] r
