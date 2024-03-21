@@ -20,14 +20,13 @@ stackS (Sta xs n) c  | freeCellsS (Sta xs n) /= 0 = Sta (xs ++ [c]) n
                      |otherwise = error "No hay lugar en la pila"
 
 
-listaP :: [Container] -> [Int]                -- Recibe una lista de containers y devuelve una lista con los pesos de cada container
-listaP xs = [netC y|y<-xs]
 
 netS :: Stack -> Int                          -- responde el peso neto de los contenedores en la pila
-netS (Sta xs n) = sum (listaP xs)
+netS (Sta xs n) = sum (map netC xs)
 
 holdsS :: Stack -> Container -> Route -> Bool -- indica si la pila puede aceptar el contenedor considerando las ciudades en la ruta
-holdsS (Sta conts i) container ruta = inOrderR ruta (destinationC container) (destinationC (last conts))
+holdsS (Sta conts i) container ruta | length conts == 0 = True
+                                    | otherExecuteMode = inOrderR ruta (destinationC container) (destinationC (last conts))
 
 
 listaD :: [Container] -> String -> Int               -- Recibe una lista de containers y devuelve un int que refiere a la cantidad de containers a quitar

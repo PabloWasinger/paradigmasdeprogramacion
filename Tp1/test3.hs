@@ -1,4 +1,4 @@
---import Test.HUnit
+import Test.HUnit
 import Container (Container(..), newC)
 import Stack
 import Vessel
@@ -35,6 +35,16 @@ rutaLarga = newR [ bhi, qeq, mdq, bue, rsl ]
 stack1vacio = newS 1
 stack1lleno = stackS stack1vacio cMdq
 
-testStack = [ testF(stackS stack1lleno cBue),
-    not testF(stackS stack1vacio cBue)
+testStack = [ testF(stackS stack1lleno cBue), --ads
+    not (testF(stackS stack1vacio cBue))
     ]
+
+{-testGroup "Stacks" = [
+   TestCase "Añadir container a stack lleno" $ assertEqual 1 1
+   
+    ]-}
+
+testCells1 = TestCase (assertBool"El stack lleno no debería aceptar 1 container más" not testF(stackS stack1lleno cBue))
+
+
+stackTests = TestList [TestLabel "test1" testCells1]
