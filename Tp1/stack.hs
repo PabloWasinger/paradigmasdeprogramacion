@@ -28,10 +28,10 @@ maxWeight stack container = (netS stack) + (netC container) <= 20
 
 
 holdsS :: Stack -> Container -> Route -> Bool -- indica si la pila puede aceptar el contenedor considerando las ciudades en la ruta
-holdsS (Sta conts i) container ruta | length conts == 0 && netC container <= 20 = True
+holdsS (Sta conts i) container ruta | null conts && netC container <= 20 = True
        | otherwise = inOrderR ruta (destinationC container) (destinationC (last conts)) && 
-       freeCellsS (Sta conts i) /= 0 && 
-       maxWeight (Sta conts i) container
+                     freeCellsS (Sta conts i) /= 0 && 
+                     maxWeight (Sta conts i) container
 
 
 listaD :: [Container] -> String -> Int               -- Recibe una lista de containers y devuelve un int que refiere a la cantidad de containers a quitar
@@ -42,7 +42,8 @@ nuevaLista :: [Container] -> String -> [Container] -- Elimina los ultimos contai
 nuevaLista xs s = take (listaD xs s) xs
 
 popS :: Stack -> String -> Stack              -- quita del tope los contenedores con destino en la ciudad indicada
-popS (Sta xs i) s = Sta (nuevaLista xs s) i
+popS (Sta xs i) s |null xs = Sta xs i
+                  |otherwise = Sta (nuevaLista xs s) i
 
 
 
