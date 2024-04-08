@@ -9,7 +9,7 @@ import Data.ByteString (elemIndex)
 data Vessel = Ves [ Stack ] Route deriving (Eq, Show)
 
 
-newV :: Int -> Int -> Route -> Vessel  -- construye un barco según una cantida de bahias, la altura de las mismas y una ruta
+newV :: Int -> Int -> Route -> Vessel  -- construye un barco según una cantidad de bahias, la altura de las mismas y una ruta
 newV cantidad altura ruta | cantidad <= 0 || altura <= 0 = error "La altura y cantidad de las bahías deben ser mayores a 0"
                           | otherwise =  Ves [newS altura|y <- [1..cantidad]] ruta
 
