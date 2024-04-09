@@ -5,17 +5,25 @@ public class Ring {
 
 
     public Ring next() {
-        current_node = current_node.getNext();
-        return this;
+        if (current_node == null) {
+            throw new RuntimeException("Ring Vacío");
+        }
+        else {
+            current_node = current_node.getNext();
+            return this;
+        }
     }
 
 
     public Object current() {
+        if (current_node == null) {
+            throw new RuntimeException("Ring Vacío");
+        }
+
         return current_node.getValue();
     }
 
     public Ring add(Object cargo) {
-        // Ver como ponerle el next al nuevo nodo
         Node new_node = new Node(cargo, null);
 
         if (current_node == null) {
@@ -24,15 +32,37 @@ public class Ring {
             return this;
         }
         else{
+            Node node_to_connect = current_node;
+            iterate_node(node_to_connect);
+            Node previous_node = current_node;
             current_node.setNext(new_node);
+            new_node.setNext(node_to_connect);
+            current_node = new_node;
         }
-        return null;
+        return this;
     }
+
 
     public Ring remove() {
-        return null;
+        if (current_node.getNext() == current_node) {
+            current_node = null;
+            return this;
+        }
+
+        Node node_to_remove = current_node;
+        iterate_node(node_to_remove);
+        Node next_node = node_to_remove.getNext();
+        current_node.setNext(next_node);
+
+        current_node = next_node;
+        return this;
     }
 
+    private void iterate_node(Node end_node) {
+        while (current_node.getNext() != end_node) {
+            this.next();
+        }
+    }
 
     private static class Node {
         private Object value;
