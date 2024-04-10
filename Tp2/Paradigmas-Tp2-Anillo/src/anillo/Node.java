@@ -4,14 +4,11 @@ public abstract class Node {
     protected Object value;
     protected Node next;
     // Setters y Getters de next y value
-
-    protected Node setValue(Object value) {
-        this.value = value;
-        return this;
+    protected void setNext(Node next) {
+        this.next = next;
     }
     protected abstract Node getNext();
     protected abstract Object getValue();
-    protected abstract Node setNext(Node next);
-
+    protected abstract Node getNode(Node optionalnode);
 }
 

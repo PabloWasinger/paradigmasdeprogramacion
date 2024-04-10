@@ -5,13 +5,7 @@ public class EmptyNode extends Node {
         this.value = null;
         this.next = null;
     }
-    
-    protected Node setNext(Node next) {
-        Node nonempty = new NonEmptyNode();
-        nonempty.setNext(nonempty);
-        return nonempty;
 
-    }
 
     protected Node getNext() {
         throw new RuntimeException("Ring Vacío");
@@ -21,5 +15,7 @@ public class EmptyNode extends Node {
         throw new RuntimeException("Ring Vacío");
     }
 
-
+    protected Node getNode(Node optionalnode) {
+        return optionalnode;
+    }
 }
