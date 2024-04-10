@@ -3,25 +3,16 @@ package anillo;
 public class Ring {
     public Node current_node;
     public Ring(){
-        current_node = new LaTotsi();
+        current_node = new EmptyNode();
     }
 
     public Ring next() {
-        if (current_node == null) {
-            throw new RuntimeException("Ring Vacío");
-        }
-        else {
-            current_node = current_node.getNext();
-            return this;
-        }
+        current_node = current_node.getNext();
+        return this;
     }
 
 
     public Object current() {
-        if (current_node == null) {
-            throw new RuntimeException("Ring Vacío");
-        }
-
         return current_node.getValue();
     }
 
