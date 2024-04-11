@@ -18,4 +18,8 @@ public class EmptyNode extends Node {
     protected Node getNode(Node optionalnode) {
         return optionalnode;
     }
+
+    protected Node removeNode(Node previous_node) {
+        throw new RuntimeException("Ring vacío");
+    }
 }

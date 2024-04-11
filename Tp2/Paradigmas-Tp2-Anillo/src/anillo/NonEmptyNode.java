@@ -17,4 +17,10 @@ public class NonEmptyNode extends Node {
     protected Node getNode(Node optionalnode) {
         return this;
     }
+
+    protected Node removeNode(Node previousNode) {
+        previousNode.setNext(this.next);
+        return this.next == this ? new EmptyNode() : this.next;
+    }
+
 }

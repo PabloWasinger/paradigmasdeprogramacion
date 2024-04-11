@@ -30,16 +30,9 @@ public class Ring {
 
 
     public Ring remove() {
-        if (current_node.getNext() == current_node) {
-            current_node = null;
-            return this;
-        }
-
         Node node_to_remove = current_node;
         iterate_node(node_to_remove);
-        Node next_node = node_to_remove.getNext();
-        current_node.setNext(next_node);
-        current_node = next_node;
+        current_node = node_to_remove.removeNode(current_node);
         return this;
     }
 

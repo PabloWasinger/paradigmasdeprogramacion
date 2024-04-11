@@ -10,5 +10,6 @@ public abstract class Node {
     protected abstract Node getNext();
     protected abstract Object getValue();
     protected abstract Node getNode(Node optionalnode);
+    protected abstract Node removeNode(Node previous_node);
 }
 
