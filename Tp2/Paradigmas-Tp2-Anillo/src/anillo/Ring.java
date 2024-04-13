@@ -1,19 +1,20 @@
 package anillo;
 
 public class Ring {
+    static public String emptyRingError = "Ring Vacío";
     public Node current_node;
     public Ring(){
         current_node = new EmptyNode();
     }
 
     public Ring next() {
-        current_node = current_node.getNext();
+         current_node = current_node.next();
         return this;
     }
 
 
     public Object current() {
-        return current_node.getValue();
+        return current_node.current();
     }
 
     public Ring add(Object cargo) {
@@ -34,12 +35,6 @@ public class Ring {
         iterate_node(node_to_remove);
         current_node = node_to_remove.removeNode(current_node);
         return this;
-    }
-
-    private void iterate_node(Node end_node) {
-        while (current_node.getNext() != end_node && current_node.getNext() != null){
-            this.next();
-        }
     }
 
 

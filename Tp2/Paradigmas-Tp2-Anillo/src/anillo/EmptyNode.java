@@ -1,25 +1,26 @@
 package anillo;
 
-public class EmptyNode extends Node {
-    public EmptyNode() {
-        this.value = null;
-        this.next = null;
+public class EmptyNode extends Node{
+    @Override
+    protected Node add(Object cargo) {
+        NonEmptyNode nuevo = new SingleNode(cargo);
+        nuevo.setNext(nuevo);
+        nuevo.setPrevious(nuevo);
+        return nuevo;
     }
 
-
-    protected Node getNext() {
-        throw new RuntimeException("Ring Vacío");
+    @Override
+    protected Node next() {
+        throw new RuntimeException(Ring.emptyRingError);
     }
 
-    protected Object getValue() {
-        throw new RuntimeException("Ring Vacío");
+    @Override
+    protected Node current() {
+        throw new RuntimeException(Ring.emptyRingError);
     }
 
-    protected Node getNode(Node optionalnode) {
-        return optionalnode;
-    }
-
-    protected Node removeNode(Node previous_node) {
-        throw new RuntimeException("Ring vacío");
+    @Override
+    protected Node remove() {
+        throw new RuntimeException(Ring.emptyRingError);
     }
 }

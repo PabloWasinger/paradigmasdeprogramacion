@@ -1,26 +1,51 @@
 package anillo;
 
 public class NonEmptyNode extends Node {
+    protected Object cargo;
+    private NonEmptyNode next;
+    private NonEmptyNode previous;
+//    public NonEmptyNode(Object cargo){
+//        this.cargo = cargo;
+//    }
 
-
-    protected NonEmptyNode(Object value) {
-        this.value = value;
+    public NonEmptyNode(Object cargo, NonEmptyNode next, NonEmptyNode previous){
+        this.cargo = cargo;
+        this.next = next;
+        this.previous = previous;
     }
-    protected Node getNext() {
+    @Override
+    protected Node add(Object cargo) {
+        NonEmptyNode new_node = new NonEmptyNode(cargo, this, this.previous);
+        //new_node.setNext(this);
+        //new_node.setPrevious(this.previous);
+        this.previous.setNext(new_node);
+        this.previous = new_node;
+        return new_node;
+    }
+
+    @Override
+    protected Node next() {
         return this.next;
     }
 
-    protected Object getValue() {
-        return this.value;
+    @Override
+    protected Object current() {
+        return this.cargo;
     }
 
-    protected Node getNode(Node optionalnode) {
-        return this;
+    @Override
+    protected Node remove() {
+        this.previous.setNext(this.next);
+        this.next.setPrevious(this.previous);
+        return this.next(); //this.previous
     }
 
-    protected Node removeNode(Node previousNode) {
-        previousNode.setNext(this.next);
-        return this.next == this ? new EmptyNode() : this.next;
+    protected void setNext(NonEmptyNode next) {
+        this.next = next;
+    }
+
+    protected void setPrevious(NonEmptyNode previous) {
+        this.previous = previous;
     }
 
 }
