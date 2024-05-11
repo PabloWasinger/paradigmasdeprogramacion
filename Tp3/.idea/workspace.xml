@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8f65500-a4d6-4b5b-b11f-aac1b6c3b1b7" name="Changes" comment="" />
+    <list default="true" id="f8f65500-a4d6-4b5b-b11f-aac1b6c3b1b7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Tp2/Paradigmas-Tp2-Anillo/src/anillo/Ring.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tp2/Paradigmas-Tp2-Anillo/src/anillo/Ring.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,7 +14,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
   "lastFilter": {
@@ -57,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715468091353</updated>
-      <workItem from="1715468092603" duration="707000" />
+      <workItem from="1715468092603" duration="360000" />
     </task>
     <servers />
   </component>
