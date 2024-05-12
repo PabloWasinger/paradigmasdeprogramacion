@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e647ae70-be35-410d-9178-118773747da3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axiom/Axiom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/axiom/Axiom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axiom/AxiomTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/axiom/AxiomTest.java" afterDir="false" />
+    <list default="true" id="e647ae70-be35-410d-9178-118773747da3" name="Changes" comment="tests">
+      <change afterPath="$PROJECT_DIR$/Axiom/src/AxiomTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/axiom/Axiom.java" beforeDir="false" afterPath="$PROJECT_DIR$/Axiom/src/axiom/Axiom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/axiom/AxiomTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +21,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -36,10 +40,11 @@
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Sidiropulos Lamouret/Desktop/Feli/paradigmas/carpeta para vs/tp1/paradigmasdeprogramacion",
+    "last_opened_file_path": "/Users/pablowasinger/developer/udesa/paradigmas/Tp3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,14 +81,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -95,13 +92,27 @@
       <workItem from="1715346847783" duration="1237000" />
       <workItem from="1715467212153" duration="4000" />
       <workItem from="1715467421563" duration="608000" />
+      <workItem from="1715470819673" duration="18000" />
+      <workItem from="1715552170077" duration="66000" />
+      <workItem from="1715552239131" duration="9000" />
+      <workItem from="1715552271910" duration="345000" />
     </task>
+    <task id="LOCAL-00001" summary="tests">
+      <option name="closed" value="true" />
+      <created>1715470829992</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715470829992</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="tests" />
   </component>
 </project>

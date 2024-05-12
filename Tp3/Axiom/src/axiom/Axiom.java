@@ -57,16 +57,16 @@ public class Axiom {
         }
 
         else;
-            probe = "deployed";
-        }
+        probe = "deployed";
+    }
 
         return this;
-    }
+}
 
-    public char rotate(char direction) {
-        if (direction == 'l') {
-            return 'E';
-        }
-        return 'N';
+public char rotate(char direction) {
+    if (direction == 'l') {
+        return 'E';
     }
+    return 'N';
+}
 }
