@@ -39,6 +39,16 @@ public class AxiomTest {
         assertEquals('E' , newBoat().rotate('l') );
     }
 
+    // Test 08: Rotates right correctly
+    // Test 09: Cant rotate when probe is deployed
+    // Test 10: Cant slow down when probe is deployed
+    // Test 11: Probe deploys correctly
+    // Test 12: Cant deploy probe when probe is deployed
+    // Test 13: Cant retract probe when probe is not deployed
+    // Test 14: Retracts probe correctly
+
+
+
 
 
 

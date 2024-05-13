@@ -1,0 +1,3 @@
+Una forma de pensarlo podría ser usando herencia  y polimorfismo. Donde exite la clase abstracta axiom con clases polimorficas axiomprobedeployed y axiom probenotdeployed.
+Sin embargo, la idea de este trabajo es usar **Object Composition** en lugar de **Inheritance**.
+Por eso mismo, vamos a tener que aprender a usar decoradores, adapters, proxys etc.
