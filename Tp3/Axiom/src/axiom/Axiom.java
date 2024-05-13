@@ -61,18 +61,21 @@ public class Axiom {
             throw new RuntimeException("too slow");
         }
 
-        else;
-        probe = "deployed";
-
+        else {
+            probe = "deployed";
+        }
 
         return this;
     }
 
     public char rotate(char direction) {
         if (direction == 'l') {
-            return 'E';
+            heading = directions.get((directions.indexOf(heading) + 3) % 4);
         }
-        return 'N';
+        else{
+            heading = directions.get((directions.indexOf(heading) + 1) % 4);
+        }
+        return heading;
     }
 }
 
