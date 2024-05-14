@@ -19,34 +19,58 @@ public class AxiomTest {
     @Test void test04CantDecreaseSpeedWhenStopped() {
         assertThrowsLike("parado" ,() -> newBoat().process('s'));}
 
-    @Test void test05() {
+    @Test void test05RotatesAndIncrementsSpeed() {
         assertEquals(10 , newBoat().process('l').process('i').speed() );
     }
 
-    @Test void test06HeadingStartsNorh() {
+    @Test void test06HeadingStartsNorth() {
         assertEquals('N' , newBoat().heading() );
     }
 
-    @Test void test06ProbeStartsNotDeployed() {
+    @Test void test07ProbeStartsNotDeployed() {
         assertEquals("not deployed" , newBoat().probe() );
     }
 
-    @Test void test07tToSlowToDeploy() {
+    @Test void test08tToSlowToDeploy() {
         assertThrowsLike("too slow" ,() -> newBoat().process('d'));
     }
 
-    @Test void test05RotatesLeftCorrectly() {
-        assertEquals('E' , newBoat().rotate('l') );
+    @Test void test09RotatesLeftCorrectly() {
+        assertEquals('W' , newBoat().process('l').heading());
     }
 
-    // Test 08: Rotates right correctly
-    // Test 09: Cant rotate when probe is deployed
-    // Test 10: Cant slow down when probe is deployed
-    // Test 11: Probe deploys correctly
-    // Test 12: Cant deploy probe when probe is deployed
-    // Test 13: Cant retract probe when probe is not deployed
-    // Test 14: Retracts probe correctly
+    @Test void test10RotatesRightCorrectly(){
+        assertEquals('E', newBoat().process('r').heading());
+    }
 
+    @Test void test11CantRotateRightWithProbeDeployed(){
+        assertThrowsLike("probe deployed", () -> newBoat().process('i').process('d').process('r'));
+    }
+    @Test void test12CantRotateLeftWithProbeDeployed(){
+        assertThrowsLike("probe deployed", () -> newBoat().process('i').process('d').process('l'));
+    }
+
+
+    @Test void test13ProbeDeploysCorrectly(){
+        assertEquals("deployed", newBoat().process('i').process('d').probe());
+    }
+
+    @Test void test14CantDeployProbeWhenProbeIsDeployed() {
+        assertThrowsLike("Can't deploy probe when probe is deployed", () -> newBoat().process('i').process('d').process('d'));
+    }
+       @Test void test15CantRetractProbeWhenProbeIsNotDeployed(){
+        assertThrowsLike("Can't retract probe when probe is not deployed", () -> newBoat().process('f'));
+    }
+    @Test void test16RetractsProbeCorrectly(){
+        assertEquals("not deployed", newBoat().process('i').process('d').process('f').probe());
+    }
+    @Test void test17CanSlowDownWhenProbeIsDeployed(){
+        assertEquals(10, newBoat().process('i').process('i').process('d').process('s').speed());
+    }
+
+    @Test void test18CantStopWhenProbeIsDeployed(){
+        assertThrowsLike("Can't stop Axiom when probe is deployed", () -> newBoat().process('i').process('d').process('s'));
+    }
 
 
 

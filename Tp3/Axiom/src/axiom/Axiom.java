@@ -4,6 +4,7 @@ import java.lang.reflect.Executable;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Objects;
 
 public class Axiom {
     private int speed = 0;
@@ -27,13 +28,17 @@ public class Axiom {
     public Axiom process(char command) {
         if (command == 's') {
             this.decreaseSpeed();
-        } else
-        if (command == 'i') {
+        } else if (command == 'i') {
             this.increaseSpeed();
         }
 
         if (command == 'd') {
             this.deployProbe();
+        } else if (command == 'f') {
+            this.retractProbe();
+        }
+        if (command == 'r' || command == 'l') {
+            this.rotate(command);
         }
         return this;
     }
@@ -50,6 +55,9 @@ public class Axiom {
         if (speed == 0) {
             throw new RuntimeException("parado");
         }
+        else if (speed == 10 && Objects.equals(probe, "deployed")) {
+            throw new RuntimeException("Can't stop Axiom when probe is deployed");
+        }
         else {
             speed -= 10;
         }
@@ -57,8 +65,12 @@ public class Axiom {
     }
 
     public Axiom deployProbe() {
-        if (speed == 0){
+        if (speed == 0 ){
             throw new RuntimeException("too slow");
+        }
+
+        else if (Objects.equals(probe, "deployed")) {
+            throw new RuntimeException("Can't deploy probe when probe is deployed");
         }
 
         else {
@@ -68,12 +80,27 @@ public class Axiom {
         return this;
     }
 
+    public Axiom retractProbe() {
+        if (Objects.equals(probe, "not deployed")) {
+            throw new RuntimeException("Can't retract probe when probe is not deployed");
+        }
+        else {
+            probe = "not deployed";
+        }
+        return this;
+    }
+
     public char rotate(char direction) {
-        if (direction == 'l') {
-            heading = directions.get((directions.indexOf(heading) + 3) % 4);
+        if (Objects.equals(probe, "deployed")){
+            throw new RuntimeException("probe deployed");
         }
         else{
-            heading = directions.get((directions.indexOf(heading) + 1) % 4);
+            if (direction == 'l') {
+                heading = directions.get((directions.indexOf(heading) + 3) % 4);
+            }
+            else{
+                heading = directions.get((directions.indexOf(heading) + 1) % 4);
+            }
         }
         return heading;
     }
