@@ -1,2 +1,5 @@
-package axiom;public class Break {
+package axiom;
+
+public class Break {
+
 }
