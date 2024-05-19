@@ -17,7 +17,7 @@ public class AxiomTest {
         assertEquals(0, newBoat().process('i').process('s').speed() );}
 
     @Test void test04CantDecreaseSpeedWhenStopped() {
-        assertThrowsLike("parado" ,() -> newBoat().process('s'));}
+        assertThrowsLike("No se puede disminuir la velocidad cuando el motor está detenido" ,() -> newBoat().process('s'));}
 
     @Test void test05RotatesAndIncrementsSpeed() {
         assertEquals(10 , newBoat().process('l').process('i').speed() );
@@ -28,11 +28,11 @@ public class AxiomTest {
     }
 
     @Test void test07ProbeStartsNotDeployed() {
-        assertEquals("not deployed" , newBoat().probe() );
+        assertEquals("retracted" , newBoat().probe() );
     }
 
     @Test void test08tToSlowToDeploy() {
-        assertThrowsLike("too slow" ,() -> newBoat().process('d'));
+        assertThrowsLike("No se puede soltar la sonda cuando el motor esta detenido" ,() -> newBoat().process('d'));
     }
 
     @Test void test09RotatesLeftCorrectly() {

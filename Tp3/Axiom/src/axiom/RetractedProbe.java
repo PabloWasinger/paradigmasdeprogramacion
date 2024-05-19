@@ -13,21 +13,16 @@ public class RetractedProbe extends Probe{
             axiom.turnRight();
         }
 
-        protected  void decreaseSpeed(Axiom2 axiom){
-            if (axiom.speed() == 0){
-                throw new RuntimeException("Can't decrease speed when speed is 0");
-            }
-            else{
-                axiom.decreaseSpeed();
-            }
-        }
-
         protected  void deployProbe(Axiom2 axiom){
             axiom.deployProbe();
         }
 
         protected  void retractProbe(Axiom2 axiom){
-            throw new RuntimeException("Can't retract probe when probe is retracted");
+            throw new RuntimeException("Can't retract probe when probe is not deployed");
+        }
+
+        protected void stop(Axiom2 axiom){
+            axiom.decreaseSpeed();
         }
 
 
