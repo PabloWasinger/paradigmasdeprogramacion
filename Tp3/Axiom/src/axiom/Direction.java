@@ -1,12 +1,10 @@
 package axiom;
 
-public class Direction extends Compass{
-    @Override
-    public Direction turnLeft() {
-        return null;
-    }
-    @Override
-    public Direction turnRight() {
-        return null;
-    }
+abstract class Direction {
+
+    public abstract Direction turnRight();
+    public abstract Direction turnLeft();
+
+
+
 }

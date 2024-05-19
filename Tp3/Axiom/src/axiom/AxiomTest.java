@@ -78,9 +78,7 @@ public class AxiomTest {
 
 
 
-    private Axiom newBoat() {
-        return new Axiom();
-    }
+    private Axiom2 newBoat() {return new Axiom2();}
     private static void assertThrowsLike(String ErrorMessage, Executable bodyToEval) {
         assertEquals(ErrorMessage,
                 assertThrows(Exception.class,  bodyToEval).getMessage());
