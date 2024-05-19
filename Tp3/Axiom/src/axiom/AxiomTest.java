@@ -62,19 +62,15 @@ public class AxiomTest {
         assertThrowsLike("Can't retract probe when probe is not deployed", () -> newBoat().process('f'));
     }
     @Test void test16RetractsProbeCorrectly(){
-        assertEquals("not deployed", newBoat().process('i').process('d').process('f').probe());
+        assertEquals("retracted", newBoat().process('i').process('d').process('f').probe());
     }
     @Test void test17CanSlowDownWhenProbeIsDeployed(){
         assertEquals(10, newBoat().process('i').process('i').process('d').process('s').speed());
     }
 
     @Test void test18CantStopWhenProbeIsDeployed(){
-        assertThrowsLike("Can't stop Axiom when probe is deployed", () -> newBoat().process('i').process('d').process('s'));
+        assertThrowsLike("Can't stop when probe is deployed", () -> newBoat().process('i').process('d').process('s'));
     }
-
-
-
-
 
 
 

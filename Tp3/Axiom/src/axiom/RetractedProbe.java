@@ -15,6 +15,7 @@ public class RetractedProbe extends Probe{
 
         protected  void deployProbe(Axiom2 axiom){
             axiom.deployProbe();
+
         }
 
         protected  void retractProbe(Axiom2 axiom){

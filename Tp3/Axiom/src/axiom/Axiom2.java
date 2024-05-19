@@ -1,7 +1,10 @@
 package axiom;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 public class Axiom2 {
-    private Direction direction;
+    private Direction direction = new North();
     private int speed;
     private Probe probe = new RetractedProbe();
     private List<Engine> engines = new ArrayList<>(Arrays.asList(new StoppedEngine()));
@@ -33,6 +36,7 @@ public class Axiom2 {
 
     protected Axiom2 increaseSpeed() {
         speed += 10;
+        engines.add(new RunningEngine());
         return this;
     }
     protected Axiom2 startEngine(){

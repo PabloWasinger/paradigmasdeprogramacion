@@ -15,5 +15,5 @@ public abstract class Probe {
 
     protected abstract void retractProbe(Axiom2 axiom);
 
-
+    protected abstract void stop(Axiom2 axiom);
 }
