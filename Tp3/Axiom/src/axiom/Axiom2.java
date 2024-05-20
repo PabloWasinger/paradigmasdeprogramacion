@@ -8,31 +8,46 @@ public class Axiom2 {
     private int speed;
     private Probe probe = new RetractedProbe();
     private List<Engine> engines = new ArrayList<>(Arrays.asList(new StoppedEngine()));
+    private Process process = new StringI();
 
+
+//    public Axiom2 process(Character chars){
+//        switch (chars){
+//            case 'i':
+//                checkIncreaser();
+//                break;
+//            case 's':
+//                checkDecreaser();
+//                break;
+//            case 'l':
+//                canTurnLeft();
+//                break;
+//            case 'r':
+//                canTurnRight();
+//                break;
+//            case 'd':
+//                canDeployProbe();
+//                break;
+//            case 'f':
+//                canRetractProbe();
+//                break;
+//        }
+//        return this;
+//    }
 
     public Axiom2 process(Character chars){
-        switch (chars){
-            case 'i':
-                checkIncreaser();
-                break;
-            case 's':
-                checkDecreaser();
-                break;
-            case 'l':
-                canTurnLeft();
-                break;
-            case 'r':
-                canTurnRight();
-                break;
-            case 'd':
-                canDeployProbe();
-                break;
-            case 'f':
-                canRetractProbe();
-                break;
+
+        if (process.canHandle(chars)){
+            process.handle(this);
+        }
+        else{
+            process = process.next();
+            process(chars);
         }
         return this;
     }
+
+
 
     protected Axiom2 increaseSpeed() {
         speed += 10;
@@ -81,6 +96,7 @@ public class Axiom2 {
     protected void canTurnRight(){
         probe.turnRight(this);
     }
+
     protected Axiom2 turnRight(){
         this.direction = direction.turnRight();
         return this;

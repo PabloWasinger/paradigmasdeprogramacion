@@ -23,6 +23,7 @@ abstract class Direction {
         }
     }
 
+
     class East extends Direction{
         public Character heading(){
             return 'E';
@@ -35,6 +36,7 @@ abstract class Direction {
             return new South();
         }
     }
+
 
     class West extends Direction {
         public Character heading(){
