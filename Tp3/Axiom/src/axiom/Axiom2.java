@@ -8,8 +8,7 @@ public class Axiom2 {
     private int speed;
     private Probe probe = new RetractedProbe();
     private List<Engine> engines = new ArrayList<>(Arrays.asList(new StoppedEngine()));
-    private Process process = new StringI();
-
+    private List<Process> process = new ArrayList<>(Arrays.asList(new StringI(), new StringS(), new StringL(), new StringR(), new StringD(), new StringF()));
 
 //    public Axiom2 process(Character chars){
 //        switch (chars){
@@ -35,16 +34,24 @@ public class Axiom2 {
 //        return this;
 //    }
 
-    public Axiom2 process(Character chars){
 
-        if (process.canHandle(chars)){
-            process.handle(this);
-        }
-        else{
-            process = process.next();
-            process(chars);
-        }
+
+    public Axiom2 process(String parameters){
+            parameters.chars()
+                    .mapToObj(i -> (char) i)
+                    .forEach(this::asociatedFunction);
+
         return this;
+
+    }
+
+    public void asociatedFunction(char chars){
+        process.stream()
+                .filter(command -> command.canHandle(chars))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Invalid command"))
+                .handle(this);
+
     }
 
 
@@ -121,4 +128,5 @@ public class Axiom2 {
     public int speed(){
         return this.speed;
     }
+
 }
