@@ -9,7 +9,7 @@ abstract class Engine {
 
     class StoppedEngine extends Engine {
         void decreaseSpeed(Axiom2 axiom, Probe probe) {
-            throw new RuntimeException("No se puede disminuir la velocidad cuando el motor está detenido");
+            throw new RuntimeException("Can't decrease speed when the axiom is stopped");
         }
 
         void increaseSpeed(Axiom2 axiom, Probe probe) {
@@ -17,7 +17,7 @@ abstract class Engine {
         }
 
         void canDeployProbe(Axiom2 axiom, Probe probe) {
-            throw new RuntimeException("No se puede soltar la sonda cuando el motor esta detenido");
+            throw new RuntimeException("Can't deploy probe when the axiom is stopped");
         }
     }
 
