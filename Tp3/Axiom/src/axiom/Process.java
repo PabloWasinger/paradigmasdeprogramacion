@@ -1,17 +1,14 @@
 package axiom;
 
-import java.util.Locale;
-
 interface Process {
      abstract boolean canHandle(Character command);
 
 
     abstract void handle(Axiom2 axiom);
 
-
 }
 
-class StringI implements Process {
+class SubirVelocidad implements Process {
 
     public boolean canHandle(Character command) {
         return command.equals('i');
