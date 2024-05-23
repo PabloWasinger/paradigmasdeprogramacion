@@ -1,7 +1,29 @@
 package axiom;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 abstract class Command {
-     abstract boolean checkCommand(Character command);
+    private static List<Command> commands = new ArrayList<>(Arrays.asList(new CommandIncreaseSpeed(), new CommandDecreaseSpeed(), new CommandTurnLeft(), new CommandTurnRight(), new CommandDeployProbe(), new CommandRetractProbe()));
+
+    public static Axiom matchearComandos(String parameters, Axiom axiom) {
+        parameters.chars()
+                .mapToObj(ch -> (char) ch)
+                .forEach(ch -> Command.asociatedFunction(ch, axiom));
+        return axiom;
+    }
+    public static void asociatedFunction(char chars, Axiom axiom){
+        commands.stream()
+                .filter(command -> command.checkCommand(chars))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Invalid command"))
+                .executeCommand(axiom);
+
+    }
+
+
+    abstract boolean checkCommand(Character command);
 
 
     abstract void executeCommand(Axiom axiom);

@@ -2,6 +2,8 @@ package axiom;
 
 abstract class Direction {
     private Character heading;
+
+    //private Direction direction = new North();
     public abstract Direction turnRight();
 
     public abstract Direction turnLeft();
@@ -17,10 +19,7 @@ abstract class Direction {
         public Direction turnLeft() {
             return new West();
         }
-
-        public Direction turnRight(){
-            return new East();
-        }
+        public Direction turnRight(){return new East(); }
     }
 
 
@@ -32,7 +31,7 @@ abstract class Direction {
             return new North();
         }
 
-        public Direction turnRight(){
+        public  Direction turnRight(){
             return new South();
         }
     }
@@ -46,7 +45,7 @@ abstract class Direction {
             return new South();
         }
 
-        public Direction turnRight(){
+        public  Direction turnRight(){
             return new North();
         }
 
@@ -63,7 +62,7 @@ abstract class Direction {
             return new East();
         }
 
-        public Direction turnRight(){
+        public  Direction turnRight(){
             return new West();
         }
     }

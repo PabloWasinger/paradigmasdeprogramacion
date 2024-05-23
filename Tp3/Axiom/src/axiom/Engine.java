@@ -1,6 +1,7 @@
 package axiom;
 
 abstract class Engine {
+
     abstract void decreaseSpeed(Axiom axiom, Probe probe);
     abstract void increaseSpeed(Axiom axiom, Probe probe);
 

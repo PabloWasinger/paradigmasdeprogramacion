@@ -1,32 +1,33 @@
 package axiom;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
+
 public class Axiom {
     private Direction direction = new North();
     private int speed;
     private Probe probe = new RetractedProbe();
     private Stack<Engine> engines = new Stack<Engine>() {{ push(new StoppedEngine()); }};
-    private List<Command> commands = new ArrayList<>(Arrays.asList(new CommandIncreaseSpeed(), new CommandDecreaseSpeed(), new CommandTurnLeft(), new CommandTurnRight(), new CommandDeployProbe(), new CommandRetractProbe()));
+//    private List<Command> commands = new ArrayList<>(Arrays.asList(new CommandIncreaseSpeed(), new CommandDecreaseSpeed(), new CommandTurnLeft(), new CommandTurnRight(), new CommandDeployProbe(), new CommandRetractProbe()));
 
 
+//    public Axiom process(String parameters){
+//            parameters.chars()
+//                    .mapToObj(i -> (char) i)
+//                    .forEach(this::asociatedFunction);
+//        return this;
+//    }
+//
+//    public void asociatedFunction(char chars){
+//        commands.stream()
+//                .filter(command -> command.checkCommand(chars))
+//                .findFirst()
+//                .orElseThrow(() -> new RuntimeException("Invalid command"))
+//                .executeCommand(this);
+//
+//    }
     public Axiom process(String parameters){
-            parameters.chars()
-                    .mapToObj(i -> (char) i)
-                    .forEach(this::asociatedFunction);
 
-        return this;
-    }
-
-    public void asociatedFunction(char chars){
-        commands.stream()
-                .filter(command -> command.checkCommand(chars))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Invalid command"))
-                .executeCommand(this);
-
+        return Command.matchearComandos(parameters, this);
     }
 
 
