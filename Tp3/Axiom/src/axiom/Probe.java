@@ -7,13 +7,13 @@ public abstract class Probe {
     protected String state(){
         return this.state;
     }
-    protected abstract void turnLeft(Axiom2 axiom);
+    protected abstract void turnLeft(Axiom axiom);
 
-    protected abstract void turnRight(Axiom2 axiom);
+    protected abstract void turnRight(Axiom axiom);
 
-    protected abstract void deployProbe(Axiom2 axiom);
+    protected abstract void deployProbe(Axiom axiom);
 
-    protected abstract void retractProbe(Axiom2 axiom);
+    protected abstract void retractProbe(Axiom axiom);
 
-    protected abstract void stop(Axiom2 axiom);
+    protected abstract void stop(Axiom axiom);
 }

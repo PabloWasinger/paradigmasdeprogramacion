@@ -6,23 +6,23 @@ public class DeployedProbe extends Probe {
         this.state = "deployed";
     }
 
-    protected void turnLeft(Axiom2 axiom) {
+    protected void turnLeft(Axiom axiom) {
         throw new RuntimeException("probe deployed");
     }
 
-    protected void turnRight(Axiom2 axiom) {
+    protected void turnRight(Axiom axiom) {
         throw new RuntimeException("probe deployed");
     }
 
-    protected void deployProbe(Axiom2 axiom) {
+    protected void deployProbe(Axiom axiom) {
         throw new RuntimeException("Can't deploy probe when probe is deployed");
     }
 
-    protected void retractProbe(Axiom2 axiom) {
+    protected void retractProbe(Axiom axiom) {
         axiom.retractProbe();
     }
 
-    protected void stop(Axiom2 axiom){
+    protected void stop(Axiom axiom){
             throw new RuntimeException("Can't stop when probe is deployed");
     }
 

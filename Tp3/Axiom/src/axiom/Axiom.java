@@ -3,56 +3,55 @@ package axiom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-public class Axiom2 {
+import java.util.Stack;
+public class Axiom {
     private Direction direction = new North();
     private int speed;
     private Probe probe = new RetractedProbe();
-    private List<Engine> engines = new ArrayList<>(Arrays.asList(new StoppedEngine()));
-    private List<Process> process = new ArrayList<>(Arrays.asList(new SubirVelocidad(), new StringS(), new StringL(), new StringR(), new StringD(), new StringF()));
+    private Stack<Engine> engines = new Stack<Engine>() {{ push(new StoppedEngine()); }};
+    private List<Command> commands = new ArrayList<>(Arrays.asList(new CommandIncreaseSpeed(), new CommandDecreaseSpeed(), new CommandTurnLeft(), new CommandTurnRight(), new CommandDeployProbe(), new CommandRetractProbe()));
 
 
-    public Axiom2 process(String parameters){
+    public Axiom process(String parameters){
             parameters.chars()
                     .mapToObj(i -> (char) i)
                     .forEach(this::asociatedFunction);
 
         return this;
-
     }
 
     public void asociatedFunction(char chars){
-        process.stream()
-                .filter(command -> command.canHandle(chars))
+        commands.stream()
+                .filter(command -> command.checkCommand(chars))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Invalid command"))
-                .handle(this);
+                .executeCommand(this);
 
     }
 
 
-    protected Axiom2 increaseSpeed() {
+    protected Axiom increaseSpeed() {
         speed += 10;
         engines.add(new RunningEngine());
         return this;
     }
-    protected Axiom2 startEngine(){
+    protected Axiom startEngine(){
         engines.add(new StartigEngine());
         speed = 10;
         return this;
     }
 
-    protected void checkIncreaser(){
+    protected void canIncreaseSpeed(){
         Engine engine = engines.getLast();
         engine.increaseSpeed(this, probe);
     }
 
-    protected void checkDecreaser(){
-        Engine engine = engines.getLast();
-        engines.removeLast();
+    protected void canDecreaseSpeed(){
+        Engine engine = engines.pop();
         engine.decreaseSpeed(this, probe);
     }
 
-    protected Axiom2 decreaseSpeed() {
+    protected Axiom decreaseSpeed() {
         speed -= 10;
         return this;
     }
@@ -61,7 +60,7 @@ public class Axiom2 {
         Engine engine = engines.getLast();
         engine.canDeployProbe(this, probe);
     }
-    protected Axiom2 deployProbe() {
+    protected Axiom deployProbe() {
         probe = new DeployedProbe();
         return this;
     }
@@ -69,7 +68,7 @@ public class Axiom2 {
     protected void canRetractProbe(){
         probe.retractProbe(this);
     }
-    protected Axiom2 retractProbe() {
+    protected Axiom retractProbe() {
         probe = new RetractedProbe();
         return this;
     }
@@ -78,7 +77,7 @@ public class Axiom2 {
         probe.turnRight(this);
     }
 
-    protected Axiom2 turnRight(){
+    protected Axiom turnRight(){
         this.direction = direction.turnRight();
         return this;
     }
@@ -86,7 +85,7 @@ public class Axiom2 {
     protected void canTurnLeft(){
         probe.turnLeft(this);
     }
-    protected Axiom2 turnLeft(){
+    protected Axiom turnLeft(){
         this.direction = direction.turnLeft();
         return this;
     }
