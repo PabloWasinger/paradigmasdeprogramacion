@@ -36,7 +36,7 @@ class CommandIncreaseSpeed extends Command {
         return command.equals('i');
     }
     public void executeCommand(Axiom axiom) {
-        axiom.canIncreaseSpeed();
+        axiom.increaseSpeed();
     }
 
 }
@@ -48,7 +48,7 @@ class CommandDecreaseSpeed extends Command {
     }
 
     public void executeCommand(Axiom axiom) {
-        axiom.canDecreaseSpeed();
+        axiom.decreaseSpeed();
     }
 
 }
@@ -60,7 +60,7 @@ class CommandTurnLeft extends Command {
     }
 
     public void executeCommand(Axiom axiom) {
-        axiom.canTurnLeft();
+        axiom.turnLeft();
     }
 
 }
@@ -72,7 +72,8 @@ class CommandTurnRight extends Command {
     }
 
     public void executeCommand(Axiom axiom) {
-        axiom.canTurnRight();
+        //Axiom.turnRight(axiom);
+        axiom.turnRight();
     }
 
 }
@@ -84,7 +85,8 @@ class CommandDeployProbe extends Command {
     }
 
     public void executeCommand(Axiom axiom) {
-        axiom.canDeployProbe();
+        //Axiom.deployProbe(axiom)
+        axiom.deployProbe();
     }
 
 }
@@ -96,7 +98,7 @@ class CommandRetractProbe extends Command {
     }
 
     public void executeCommand(Axiom axiom) {
-        axiom.canRetractProbe();
+        axiom.retractProbe();
     }
 
 }

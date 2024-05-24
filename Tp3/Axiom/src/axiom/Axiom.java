@@ -15,7 +15,6 @@ public class Axiom {
         return Command.matchCommands(parameters, this);
     }
 
-
     protected Axiom increaseSpeed() {
         speedControler = speedControler.increaseSpeed();
         return this;
@@ -60,8 +59,6 @@ public class Axiom {
         return probe.state();
     }
 
-    public int speed(){
-        return this.speed;
-    }
+    public int speed(){return speedControler.getSpeed();}
 
 }

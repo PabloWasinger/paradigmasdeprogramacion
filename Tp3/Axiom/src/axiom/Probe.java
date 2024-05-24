@@ -1,7 +1,7 @@
 package axiom;
 
 public abstract class Probe {
-    //Probe probe = new RetractedProbe();
+
     String state;
 
     protected String state(){
