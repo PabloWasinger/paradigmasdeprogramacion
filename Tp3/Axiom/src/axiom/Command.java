@@ -7,7 +7,7 @@ import java.util.List;
 abstract class Command {
     private static List<Command> commands = new ArrayList<>(Arrays.asList(new CommandIncreaseSpeed(), new CommandDecreaseSpeed(), new CommandTurnLeft(), new CommandTurnRight(), new CommandDeployProbe(), new CommandRetractProbe()));
 
-    public static Axiom matchearComandos(String parameters, Axiom axiom) {
+    public static Axiom matchCommands(String parameters, Axiom axiom) {
         parameters.chars()
                 .mapToObj(ch -> (char) ch)
                 .forEach(ch -> Command.asociatedFunction(ch, axiom));

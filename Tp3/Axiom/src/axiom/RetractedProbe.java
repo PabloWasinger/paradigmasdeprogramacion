@@ -5,25 +5,25 @@ public class RetractedProbe extends Probe{
         protected RetractedProbe(){
             this.state = "retracted";
         }
-        protected void turnLeft(Axiom axiom){
-            axiom.turnLeft();
+        protected void turnLeft(){
+            return;
         }
 
-        protected  void turnRight(Axiom axiom){
-            axiom.turnRight();
+        protected  void turnRight(){
+            return;
         }
 
-        protected  void deployProbe(Axiom axiom){
-            axiom.deployProbe();
+        protected  void canDeployProbe(){
+            return;
 
         }
 
-        protected  void retractProbe(Axiom axiom){
+        protected  void canRetractProbe(){
             throw new RuntimeException("Can't retract probe when probe is not deployed");
         }
 
-        protected void stop(Axiom axiom){
-            axiom.decreaseSpeed();
+        protected void stop(){
+            return;
         }
 
 

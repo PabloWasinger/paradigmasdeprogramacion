@@ -1,10 +1,8 @@
 package axiom;
 
-abstract class Direction {
-    private Character heading;
+abstract class DirectionControler {
 
-    //private Direction direction = new North();
-    public abstract Direction turnRight();
+    public abstract DirectionControler turnRight();
 
     public abstract Direction turnLeft();
 
