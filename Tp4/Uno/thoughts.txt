@@ -1,0 +1,13 @@
+Cada jugador es simplemente una lista de cartas asheieieieieieieiei
+
+se puede retirar en cualquier momento (Para no preguntar el maso)
+
+en el caso de que se retira, en vez de preguntar si el jugador tiene la cata, simplemente ver si se puede jugar. :)
+
+
+para jugar una wild car, le pasaamos el color a la misma carta.
+
+para ver compatibilidad de cartas, usamos delegacion. Le preguntamos a la carta si es compatible con otra carta.
+
+un diccionario para cada jugador con sus cartas.
+
