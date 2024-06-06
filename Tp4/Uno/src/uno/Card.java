@@ -8,6 +8,17 @@ public class Card {
     private String type;
 
 
+    public Card(String color, String type){
+        this.color = color;
+        this.type = type;
+
+    }
+    public Card(String color, int number){
+        this.color = color;
+        this.number = number;
+        this.type = "numbered";
+    }
+
     protected void playCard(Card card){
         if (Objects.equals(this.type, "wild")){
             throw new RuntimeException("Wild card must have color");
@@ -15,11 +26,15 @@ public class Card {
         this.matchCard(card);
     }
 
-    protected void playCard(Card card, String color){
+    protected Card playCard(Card card, String color, UnoGame game){
         if (Objects.equals(this.type, "wild")){
             this.changeColorTo(color);
         }
         this.matchCard(card);
+        if (Objects.equals(card.type, "skip")){
+            this.skip(game);
+        }
+        return this;
     }
 
 
@@ -61,5 +76,24 @@ public class Card {
     protected Card changeColorTo(String color){
             this.color = color;
             return this;
+    }
+
+
+    protected void reverse(UnoGame game, int jugadores){
+        if (jugadores == 2){
+            game.nextTurn();
+            game.reverse();
+        }
+        game.reverse();
+
+
+    }
+
+    protected void skip(UnoGame game){
+        game.nextTurn();
+    }
+
+    protected void drawTwo(UnoGame game){
+        game.takeCard(2);
     }
 }

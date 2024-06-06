@@ -1,28 +1,33 @@
 package uno;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import java.util.Arrays;
 
-import java.lang.reflect.Executable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UnoTest {
 
     @Test
-    void testcardtoplaystartsred(){
-        assertEquals("red", newGame().cardToPlayColorcard());
+    void testCenterCardStartsRed(){
+        assertEquals("red", newGame1().getJugada());
     }
 
     @Test void testcardtoplaystarts1(){
-        assertEquals(1, newGame().cardToPlayNumbercard());
+        assertEquals(1, newGame1().getJugada());
     }
 
 
 
     @Test
     void centerPileStartsWithOneCard() {
-        assertEquals(1, newGame().centerPile());
+        assertEquals(1, newGame1());
     }
+
+
 
     @Test
     void testplayer1StartsTheGame() {
@@ -31,7 +36,7 @@ public class UnoTest {
 
     @Test
     void testplayerStartsWithSevenCards() {
-        assertEquals(7, newPlayer().cards());
+        assertEquals(7, newGame().cards());
     }
 
 
@@ -94,8 +99,24 @@ public class UnoTest {
     //test8gameEndsWhenPlayerHasNoCards: This test will ensure that the game ends when a player has no more cards.
             //test9playerMustShoutUnoWhenOneCardLeft: This test will ensure that a player must shout "Uno" when they only have one card left.
             //test10playerDrawsTwoCardsIfFailToShoutUno: This test will ensure that if a player fails to shout "Uno" when they only have one card left, they must draw two cards.
-    private Player newPlayer(){return new Player();}
-    private UnoGame newGame(){return new UnoGame();}
+
+    private UnoGame newGame(HashMap<Integer, ArrayList<Card>> pila){
+        return new UnoGame(pila);}
+    private Card newNumberedCard(String color, int number){return new Card(color, number);}
+    private Card newSpecialCard(String color, String type){return new Card(color, type);}
+
+
+
+
+    private UnoGame newGame1(){
+        HashMap<Integer, ArrayList<Card>> pila = new HashMap<Integer, ArrayList<Card>>();
+        pila.put(-1 , new ArrayList<Card>(Arrays.asList(newNumberedCard("red", 1))));
+        pila.put(1, new ArrayList<Card>(Arrays.asList(newNumberedCard("red", 2))));
+        pila.put(2, new ArrayList<Card>(Arrays.asList(newNumberedCard("red", 3))));
+
+        return newGame(pila);
+    }
+
     private static void assertThrowsLike(String ErrorMessage, Executable bodyToEval) {
         assertEquals(ErrorMessage,
                 assertThrows(Exception.class,  bodyToEval).getMessage());

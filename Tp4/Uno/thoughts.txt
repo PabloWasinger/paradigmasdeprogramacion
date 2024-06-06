@@ -11,3 +11,16 @@ para ver compatibilidad de cartas, usamos delegacion. Le preguntamos a la carta 
 
 un diccionario para cada jugador con sus cartas.
 
+
+
+
+
+preguntar si al tirar la carta equivpcada hay que tomar dos o tirar error
+
+como terminamos el juego? error?
+
+
+podemos hacer queues para los mazos?
+
+preguntar como funciona el reverse
+
