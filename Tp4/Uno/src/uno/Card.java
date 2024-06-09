@@ -1,22 +1,18 @@
 package uno;
 import java.util.Objects;
+import java.util.ArrayList;
 
 public class Card {
 
     private String color;
-    private int number;
+    private String number;
     private String type;
 
     
-    public Card(String color, String type){
-        this.color = color;
-        this.type = type;
-
-    }
-    public Card(String color, int number){
-        this.color = color;
-        this.number = number;
-        this.type = "numbered";
+    public Card(ArrayList<String> carta){
+        this.color = carta.get(0);
+        this.number = carta.get(1);
+        this.type = carta.get(2);
     }
 
     protected void playCard(Card card){
@@ -39,38 +35,40 @@ public class Card {
 
 
     protected void matchCard(Card card){
-        this.matchesColorWith(card);
-        this.matchesNumberWith(card);
-    }
-    protected void matchesColorWith(Card card){
-        if (Objects.equals(this.type, "wild"))
-        {
-            return;
-        }
-        else if (Objects.equals(this.color, card.color)) {
+        if (this.matchesColorWith(card) || this.matchesNumberWith(card)){
             return;
         }
         throw new RuntimeException("Cannot play non-matching card");
+    }
+    protected boolean matchesColorWith(Card card){
+        if (Objects.equals(this.type, "wild"))
+        {
+            return true ;
+        }
+        else if (Objects.equals(this.color, card.color)) {
+            return true;
+        }
+        return false;
 
     }
 
-    protected void matchesNumberWith(Card card){
+    protected boolean matchesNumberWith(Card card){
         if (this.isSpecial())
         {
-            return;
+            return true;
         }
         else if (card.isSpecial())
         {
-            return;
+            return true;
         }
 
         else if (Objects.equals(this.number, card.number)) {
-            return;
+            return true;
         }
-        throw new RuntimeException("Cannot play non-matching card");
+        return false;
     }
     protected boolean isSpecial(){
-        return Objects.equals(this.type, "numbered");
+        return !Objects.equals(this.type, "numbered");
     }
 
     protected Card changeColorTo(String color){
@@ -95,5 +93,17 @@ public class Card {
 
     protected void drawTwo(UnoGame game){
         game.takeCard(2);
+    }
+
+    protected Boolean sameCard(Card card){
+        return this.number.equals(card.getNumber()) && this.color.equals(card.getColor());
+    }
+
+    public String getColor(){
+        return this.color;
+    }
+
+    public String getNumber(){
+        return this.number;
     }
 }
