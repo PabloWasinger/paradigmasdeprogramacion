@@ -7,7 +7,7 @@ public class Card {
     private int number;
     private String type;
 
-
+    
     public Card(String color, String type){
         this.color = color;
         this.type = type;
