@@ -13,31 +13,11 @@ public class UnoGame {
     private Integer turn = 0;
     private Card jugada;
 
-    public UnoGame(ArrayList<ArrayList<String>> pile){
-        int maze = 0;
-        piles = new HashMap<Integer, ArrayList<Card>>();
-       
-        ArrayList<Card> center = new ArrayList<Card>();
-        for (int i = 0; i < pile.size(); i=i+3) {
-            Card card = new Card(pile.get(i));
-            center.add(card);
-        }
-
-        ArrayList<Card> player1 = new ArrayList<Card>();
-        for (int i = 1; i < pile.size(); i=i+3) {
-            Card card = new Card(pile.get(i));
-            player1.add(card);
-        }
-
-        ArrayList<Card> player2 = new ArrayList<Card>();
-        for (int i = 2; i < pile.size(); i=i+3) {
-            Card card = new Card(pile.get(i));
-            player2.add(card);
-        }
-        piles.put(-1, center);
-        piles.put(0, player1);
-        piles.put(1, player2);
-        this.jugada =  center.getLast();
+    public UnoGame(ArrayList<ArrayList<Card1>> pile){
+        pile.stream().forEach((p) -> {
+            piles.put(pile.indexOf(p) - 1, p);
+        });
+        this.jugada =  piles.get(-1).getLast();
     }
     protected void reverse(){
         if (Objects.equals(sentido, "clockwise"))
@@ -93,18 +73,10 @@ public class UnoGame {
 
     }
 
+    protected UnoGame playCard(Card1 card, String uno){
 
-//    protected String playCardCallUno(A){
-//        this.playCard(card);
-//        if (this.checkCards() == 1){
-//            return "Uno";
-//        }
-//        else{
-//            throw new RuntimeException("no podes gritar uno LACRA");
-//        }
-//
-//    }
-
+        return this;
+    }
 
 
     protected int checkCards(){
