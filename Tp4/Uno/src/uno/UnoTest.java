@@ -5,40 +5,39 @@ import org.junit.jupiter.api.function.Executable;
 import java.util.Arrays;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UnoTest {
 
     @Test
-    void testCenterCardStartsRed(){
-        assertEquals("red", newGame1().getColor());
+    void testCenterCardStartsBlue(){
+        assertEquals("azul", newGame1().getColor());
     }
 
     @Test void testcardtoplaystarts1(){
-        assertEquals("1", newGame1().getNumber());
+        assertEquals(4, newGame1().getNumber());
     }
 
 
     @Test void playerDiscardCardsCorrectlyIfItIsMatchingColor(){
-        assertEquals("red", newGame1().playCard("red", "2", "numbered").getColor());
+        assertEquals("azul", newGame1().playCard(azul1).getColor());
     }
 
     @Test void playerDiscardCardsCorrectlyIfItIsMatchingNumber(){
-        assertEquals("blue", newGame1().playCard("blue", "1", "numbered").getColor());
+        assertEquals("rojo", newGame1().playCard(rojo2).getColor());
 
     }
 
     @Test void cannotPlaynonMatchingCard(){
-        assertThrowsLike("Cannot play non-matching card", () -> newGame1().playCard("yellow", "6", "numbered"));
+        assertThrowsLike("Cannot play non-matching card", () -> newGame1().playCard(amarillo6));
     }
 
     @Test void testplayer2sTurnAfterPlayer1(){
-        assertEquals(1, newGame1().playCard("red", "2", "numbered").turn());
+        assertEquals(1, newGame1().playCard(rojo2).turn());
     }
     @Test void player2CanPlayAfterPlayer1(){
-        assertEquals("red", newGame1().playCard("red", "2", "numbered").playCard("red", "3", "numbered").getColor());
+        assertEquals("rojo", newGame1().playCard(rojo2).playCard(rojo3).getColor());
     }
 
     @Test void test7player2TurnIfPlayer1TakeCard(){
@@ -48,32 +47,31 @@ public class UnoTest {
 
 
     @Test void gameEndsWhenPlayerHasNoCards(){
-        assertThrowsLike("Game Over", () -> newGame3().playCard("red", "2", "numbered"));
+        assertThrowsLike("Game Over", () -> newGame3().playCard(rojo2));
     }
 
 
     @Test void test9CanDrawCard(){
-        assertEquals("red", newGame0().takeCard().getColor());
+        assertEquals("rojo", newGame0().takeCard().getColor());
     }
 
     @Test void testIsNextPlayerTurnAfterDrawingCard(){
-        assertEquals("2", newGame11().takeCard().playCard("red", "2", "numbered").getNumber());
+        assertEquals(2, newGame11().takeCard().playCard(rojo2).getNumber());
     }
 
     @Test void testcCanPlayDrawedUpCard(){
-        assertEquals("blue", newGame11().takeCard().playCard("red", "2", "numbered").playCard("blue", "2", "numbered").getColor());
+        assertEquals("azul", newGame11().takeCard().playCard(rojo2).playCard(azul2).getColor());
     }
-
 
 
 
     @Test void test10Player1TurnSkip(){
-      assertEquals(null, newGame4().playCard("blue", null, "skip").
-              playCard("blue", "6", "numbered"));
+      assertEquals("azul", newGame4().playCard(azulSkip).
+              playCard(azul6).getColor());
     }
 
     @Test void test12playerCanPlayWildCardAnytime() {
-        assertEquals("yellow", newGame5().playCard("yellow", null, "wild").getColor());
+        assertEquals("yellow", newGame5().playCard(wild.beYellow()).getColor());
     }
 
 //    @Test void test13playerCanPlaySkipCardToSkipNextPlayerTurn() {
@@ -94,7 +92,7 @@ public class UnoTest {
             //test9playerMustShoutUnoWhenOneCardLeft: This test will ensure that a player must shout "Uno" when they only have one card left.
             //test10playerDrawsTwoCardsIfFailToShoutUno: This test will ensure that if a player fails to shout "Uno" when they only have one card left, they must draw two cards.
 
-    private UnoGame newGame(ArrayList<ArrayList<Card1>> pile){
+    private UnoGame newGame(ArrayList<ArrayList<Card>> pile){
         return new UnoGame(pile);}
 
     private ArrayList<String> newCard(String color, String number, String type){
@@ -102,16 +100,20 @@ public class UnoTest {
 
     }
 
-    // Crear las cartas
+
     NumberCard rojo1 = new NumberCard(1, "rojo");
     NumberCard rojo2 = new NumberCard(2, "rojo");
     NumberCard rojo3 = new NumberCard(3, "rojo");
+    NumberCard rojo4 = new NumberCard(4, "rojo");
+    NumberCard rojo5 = new NumberCard(5, "rojo");
+
 
     NumberCard azul1 = new NumberCard(1, "azul");
     NumberCard azul2 = new NumberCard(2, "azul");
     NumberCard azul3 = new NumberCard(3, "azul");
+    NumberCard azul4 = new NumberCard(4, "azul");
+    NumberCard azul6 = new NumberCard(6, "azul");
 
-    // Crear las cartas
     NumberCard verde1 = new NumberCard(1, "verde");
     NumberCard verde2 = new NumberCard(2, "verde");
     NumberCard verde3 = new NumberCard(3, "verde");
@@ -119,7 +121,9 @@ public class UnoTest {
     NumberCard amarillo1 = new NumberCard(1, "amarillo");
     NumberCard amarillo2 = new NumberCard(2, "amarillo");
     NumberCard amarillo3 = new NumberCard(3, "amarillo");
-    // Crear las cartas
+    NumberCard amarillo6 = new NumberCard(6, "amarillo");
+
+
     SkipCard rojoSkip = new SkipCard("rojo");
     SkipCard azulSkip = new SkipCard("azul");
     SkipCard verdeSkip = new SkipCard("verde");
@@ -136,82 +140,62 @@ public class UnoTest {
     WildCard wild = new WildCard();
 
 
-    private UnoGame newGame0(){
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<Card1>>(Arrays.asList(
-                azul2,
-                amarillo2,
-                rojo2,
-                rojo1
 
-        ));
+    private UnoGame newGame0() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul2, rojo1)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
         return newGame(pile);
     }
+
 
     private UnoGame newGame11() {
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<String>>(Arrays.asList(
-                newCard("blue", "2", "numbered"),
-                newCard("yellow", "2", "numbered"),
-                rojo2,
-                rojo1,
-                newCard("yellow", "6", "numbered"),
-                newCard("blue", "3", "numbered")
-
-        ));
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul2, rojo1)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo2, amarillo6)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul3)));
+        return newGame(pile);
+    }
+    private UnoGame newGame1() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul4, rojo1,azul2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul1)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo3,azul3)));
         return newGame(pile);
     }
 
-    private UnoGame newGame1(){
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<Card1>>(Arrays.asList(
-                newCard("blue", "2", "numbered"),
-                rojo2,
-                rojo3,
-                rojo1,
-                newCard("blue", "1", "numbered"),
-                newCard("blue", "3", "numbered"),
-                newCard("blue", "4", "numbered")
-
-        ));
-        return newGame(pile);
-    }
-    private UnoGame newGame2(){
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<Card1>>(Arrays.asList(
-                newCard("blue", "2", "numbered"),
-                newCard("yellow", "6", "numbered"),
-                rojo3
-
-        ));
+    private UnoGame newGame2() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul2)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo6)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo3)));
         return newGame(pile);
     }
 
-    private UnoGame newGame3(){
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<Card1>>(Arrays.asList(
-                rojo1,
-                rojo2,
-                rojo3
-        ));
-        return newGame(pile);
-    }
-    private UnoGame newGame4(){
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<String>>(Arrays.asList(
-                newCard("blue", "2", "numbered"),
-                newCard("blue", null, "skip"),
-                newCard("red", "5", "numbered"),
-                rojo2,
-                newCard("blue", "6", "numbered")
 
-        ));
+    private UnoGame newGame3() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(rojo1)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo3)));
         return newGame(pile);
     }
 
-    private UnoGame newGame5(){
-        ArrayList<ArrayList<String>> pile = new ArrayList<ArrayList<Card1>>(Arrays.asList(
-                rojo1,
-                wild,
-                rojo3,
-                rojo4,
-                rojo3,
-                amarillo3
-        ));
+    private UnoGame newGame4() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul2 )));
+        pile.add(new ArrayList<>(Arrays.asList(azulSkip,azul6)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo5,azul1)));
+        return newGame(pile);
+    }
+
+
+private UnoGame newGame5() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(rojo1, rojo4)));
+        pile.add(new ArrayList<>(Arrays.asList(wild, rojo3)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
         return newGame(pile);
     }
 

@@ -1,6 +1,6 @@
 package uno;
 
-public class NumberCard extends Card1{
+public class NumberCard extends Card {
 
     private int number;
 
@@ -10,13 +10,13 @@ public class NumberCard extends Card1{
     }
 
     @Override
-    protected void playCard(Card1 card, UnoGame uno) {
+    protected void playCard(Card card, UnoGame uno) {
         this.matchCard(card);
         return;
     }
 
     @Override
-    protected void matchCard(Card1 card) {
+    protected void matchCard(Card card) {
         if (this.number == card.getNumber()){
             return;
         }
@@ -27,10 +27,6 @@ public class NumberCard extends Card1{
 
     }
 
-    @Override
-    protected Boolean sameCard(Card1 card) {
-        return null;
-    }
 
     @Override
     protected int getNumber(){

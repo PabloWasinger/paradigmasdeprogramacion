@@ -7,7 +7,7 @@ public class DrawTwoCard extends SpecialCard{
     }
 
     @Override
-    protected void playCard(Card1 card, UnoGame uno) {
+    protected void playCard(Card card, UnoGame uno) {
         this.matchCard(card);
         uno.takeCard(2);
 

@@ -2,18 +2,18 @@ package uno;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.HashMap;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class UnoGame {
-    private HashMap<Integer, ArrayList<Card>> piles;
+    protected HashMap<Integer, ArrayList<Card>> piles = new HashMap<>();
     private String sentido = "counter-clockwise";
     private Integer turn = 0;
     private Card jugada;
+    private Estado estado = new Juega0(this);
 
-    public UnoGame(ArrayList<ArrayList<Card1>> pile){
+    public UnoGame(ArrayList<ArrayList<Card>> pile){
         pile.stream().forEach((p) -> {
             piles.put(pile.indexOf(p) - 1, p);
         });
@@ -38,6 +38,7 @@ public class UnoGame {
         {
             turn = (turn + piles.size()-1) % (piles.size() -1);
         }
+        //estado.nextTurn();
     }
 
     protected UnoGame takeCard(){
@@ -47,17 +48,15 @@ public class UnoGame {
     }
     protected void takeCard(int n){ // Take card para mas de una carta
         for (int i = 0; i < n; i++){
-            takeCard();
+            this.takeCard();
         }
     }
 
-    protected UnoGame playCard(String color, String number, String type){
-        Card card = new Card(new ArrayList<String>(Arrays.asList(color, number, type)));
-        card.playCard(jugada);
+    protected UnoGame playCard(Card card){
+        card.playCard(jugada,this);
         piles.get(-1).add(card);
         jugada = card;
-        ArrayList<Card> carton = (ArrayList<Card>) piles.get(turn).stream().filter((car) -> car.sameCard(card)).collect(Collectors.toList());
-        piles.get(turn).remove(carton.getFirst());
+        piles.get(turn).remove(card);
 
         // si no grito 1
         if (this.checkCards() == 1){
@@ -73,7 +72,7 @@ public class UnoGame {
 
     }
 
-    protected UnoGame playCard(Card1 card, String uno){
+    protected UnoGame playCard(Card card, String uno){
 
         return this;
     }
@@ -101,7 +100,7 @@ public class UnoGame {
         return jugada.getColor();
     }
 
-    public String getNumber(){
+    public int getNumber(){
         return jugada.getNumber();
     }
 
