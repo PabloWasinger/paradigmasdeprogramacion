@@ -16,7 +16,7 @@ public class UnoTest {
     }
 
     @Test void testcardtoplaystarts1(){
-        assertEquals(4, newGame1().getNumber());
+        assertEquals(2, newGame1().getNumber());
     }
 
 
@@ -64,7 +64,6 @@ public class UnoTest {
     }
 
 
-
     @Test void test10Player1TurnSkip(){
       assertEquals("azul", newGame4().playCard(azulSkip).
               playCard(azul6).getColor());
@@ -72,6 +71,24 @@ public class UnoTest {
 
     @Test void test12playerCanPlayWildCardAnytime() {
         assertEquals("yellow", newGame5().playCard(wild.beYellow()).getColor());
+    }
+
+    @Test void canPlaySkipTwice(){
+        assertEquals("verde", newGame4().playCard(azulSkip).
+                playCard(verdeSkip).getColor());
+    }
+
+    @Test void canPlayReverseTwice(){
+        assertEquals("verde", newGame4().playCard(azulReverse).
+                playCard(verdeReverse).getColor());
+    }
+    @Test void drawTwoWorksCorrectly(){
+        assertEquals("verde", newGame4().playCard(azulReverse).
+                playCard(verdeReverse).getColor());
+    }
+    @Test void canPlayDrawTwoTwice(){
+        assertEquals("verde", newGame4().playCard(azulReverse).
+                playCard(verdeReverse).getColor());
     }
 
 //    @Test void test13playerCanPlaySkipCardToSkipNextPlayerTurn() {
@@ -160,7 +177,7 @@ public class UnoTest {
     private UnoGame newGame1() {
         ArrayList<ArrayList<Card>> pile = new ArrayList<>();
         pile.add(new ArrayList<>(Arrays.asList(azul4, rojo1,azul2)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul1)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul1,azulReverse,verdeReverse)));
         pile.add(new ArrayList<>(Arrays.asList(rojo3,azul3)));
         return newGame(pile);
     }

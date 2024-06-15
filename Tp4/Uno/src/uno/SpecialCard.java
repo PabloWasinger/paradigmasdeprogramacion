@@ -14,15 +14,17 @@ public abstract class SpecialCard extends Card {
 
    protected abstract void playCard(Card card, UnoGame uno);
 
-    @Override
-    protected void matchCard(Card card) {
-        if(this.getColor()!= card.getColor()){
-            throw new RuntimeException("No se puede jugar esta carta");
-        }
+    protected abstract void matchCard(Card card);
+    protected boolean goesUnderNumber(int number){
+        return false;
     }
 
-    @Override
-    protected int getNumber() {
-        return -1;
+    protected boolean goesUnderColor(String color){
+        return Objects.equals(this.color, color);
     }
+
+    protected int getNumber(){
+        throw new RuntimeException("Card does not have a number");
+    }
+
 }

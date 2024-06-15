@@ -20,5 +20,8 @@ public class WildCard extends SpecialCard{
     protected Card beYellow(){this.color = "yellow";
         return this;}
 
-
+    @Override
+    protected void matchCard(Card card) {
+        return;
+    }
 }

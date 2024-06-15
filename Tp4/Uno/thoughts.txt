@@ -41,3 +41,6 @@ hacer un test de querer jugar una carta de jugador que no va
 le PASAMOS EL JUEGO?
 
 SE PUEDEN TIRAR DOS ESPECIALES SEGUIDAS
+
+
+los estados son por juego o por jugador?

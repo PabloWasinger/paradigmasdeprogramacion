@@ -53,18 +53,15 @@ public class UnoGame {
     }
 
     protected UnoGame playCard(Card card){
-        card.playCard(jugada,this);
-        piles.get(-1).add(card);
-        jugada = card;
-        piles.get(turn).remove(card);
-
+        playCardInnerLogic(card);
         // si no grito 1
-        if (this.checkCards() == 1){
+        int size = this.checkCards();
+        if (size == 1){
             this.takeCard(2);
         }
 
         //si no tiene cartas
-        if (this.checkCards() == 0){
+        else if (size == 0){
             this.gameOver();
         }
         this.nextTurn();
@@ -72,9 +69,18 @@ public class UnoGame {
 
     }
 
-    protected UnoGame playCard(Card card, String uno){
-
+    protected UnoGame playCardCallUno(Card card){
+        playCardInnerLogic(card);
+        this.nextTurn();
         return this;
+    }
+
+
+    private void playCardInnerLogic(Card card) {
+        card.playCard(jugada,this);
+        piles.get(-1).add(card);
+        jugada = card;
+        piles.get(turn).remove(card);
     }
 
 
@@ -88,13 +94,8 @@ public class UnoGame {
     protected int turn(){
         return turn;
     }
-    protected String sentido(){
-        return sentido;
-    }
 
-
-    public Card getJugada(){return jugada;
-    }
+    public Card getJugada(){return jugada;}
 
     public String getColor(){
         return jugada.getColor();

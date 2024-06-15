@@ -2,20 +2,36 @@ package uno;
 
 public abstract class Card {
     String color;
+
     public Card(String color){
         this.color = color;
     }
-    protected String Calluno(){return "uno";}
 
     protected abstract void playCard(Card card, UnoGame uno);
     protected abstract void matchCard(Card card);
+    protected abstract boolean goesUnderColor(String color);
+    protected abstract boolean goesUnderNumber(int number);
+
+
+    protected abstract int getNumber();
+
+    protected boolean goesUnderReverse() {
+        return false;
+    }
+    protected boolean goesUnderSkip() {return false;}
+
+    protected boolean goesUnderDrawTo() {
+        return false;
+    }
 
     protected Boolean sameCard(Card card) {
         return this.equals(card);
     }
 
-    protected abstract int getNumber();
-    protected String getColor(){
+
+    public String getColor() {
         return this.color;
     }
+
+
 }
