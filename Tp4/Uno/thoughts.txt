@@ -39,3 +39,5 @@ CUANDO UNO CANTA UNO, NO PASA NADA, EL OTRO LE TIENE QUE CANTAR.
 hacer un test de querer jugar una carta de jugador que no va
 
 le PASAMOS EL JUEGO?
+
+SE PUEDEN TIRAR DOS ESPECIALES SEGUIDAS

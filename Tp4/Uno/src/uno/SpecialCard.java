@@ -21,7 +21,6 @@ public abstract class SpecialCard extends Card {
         }
     }
 
-
     @Override
     protected int getNumber() {
         return -1;

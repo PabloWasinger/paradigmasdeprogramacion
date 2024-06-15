@@ -185,7 +185,7 @@ public class UnoTest {
     private UnoGame newGame4() {
         ArrayList<ArrayList<Card>> pile = new ArrayList<>();
         pile.add(new ArrayList<>(Arrays.asList(rojo2,azul2 )));
-        pile.add(new ArrayList<>(Arrays.asList(azulSkip,azul6)));
+        pile.add(new ArrayList<>(Arrays.asList(azulSkip,verdeSkip,azul6)));
         pile.add(new ArrayList<>(Arrays.asList(rojo5,azul1)));
         return newGame(pile);
     }
