@@ -13,12 +13,12 @@ public class NumberCard extends Card {
 
     @Override
     protected void playCard(Card card, UnoGame uno) {
-        this.matchCard(card);
+        this.goesOnTop(card);
         return;
     }
 
     @Override
-    protected void matchCard(Card card) {
+    protected void goesOnTop(Card card) {
 
         if(card.goesUnderNumber(this.number) || card.goesUnderColor(this.color)){
             return;

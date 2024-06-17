@@ -1,7 +1,5 @@
 package uno;
 
-import java.util.Objects;
-
 public class DrawTwoCard extends SpecialCard{
 
     public DrawTwoCard(String color) {
@@ -10,13 +8,13 @@ public class DrawTwoCard extends SpecialCard{
 
     @Override
     protected void playCard(Card card, UnoGame uno) {
-        this.matchCard(card);
+        this.goesOnTop(card);
+        uno.nextTurn();
         uno.takeCard(2);
-
     }
 
     @Override
-    protected void matchCard(Card card) {
+    protected void goesOnTop(Card card) {
 
         if(card.goesUnderDrawTo() || card.goesUnderColor(this.color)){
             return;

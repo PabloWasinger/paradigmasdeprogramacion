@@ -11,111 +11,208 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UnoTest {
 
     @Test
-    void testCenterCardStartsBlue(){
-        assertEquals("azul", newGame1().getColor());
+    void tesPitCardStartsBlue(){
+        assertEquals("azul", newGameWithTwoReverseCardsForPlayer1().getColor());
     }
 
-    @Test void testcardtoplaystarts1(){
-        assertEquals(2, newGame1().getNumber());
-    }
-
-
-    @Test void playerDiscardCardsCorrectlyIfItIsMatchingColor(){
-        assertEquals("azul", newGame1().playCard(azul1).getColor());
-    }
-
-    @Test void playerDiscardCardsCorrectlyIfItIsMatchingNumber(){
-        assertEquals("rojo", newGame1().playCard(rojo2).getColor());
-
-    }
-
-    @Test void cannotPlaynonMatchingCard(){
-        assertThrowsLike("Cannot play non-matching card", () -> newGame1().playCard(amarillo6));
-    }
-
-    @Test void testplayer2sTurnAfterPlayer1(){
-        assertEquals(1, newGame1().playCard(rojo2).turn());
-    }
-    @Test void player2CanPlayAfterPlayer1(){
-        assertEquals("rojo", newGame1().playCard(rojo2).playCard(rojo3).getColor());
-    }
-
-    @Test void test7player2TurnIfPlayer1TakeCard(){
-        assertEquals(1, newGame1().takeCard().turn());
+    @Test void testPitCardStarts1(){
+        assertEquals(2, newGameWithTwoReverseCardsForPlayer1().getNumber());
     }
 
 
+    @Test void testPlayerDiscardCardsCorrectlyIfItIsMatchingColor(){
+        assertEquals("azul", newGameWithTwoReverseCardsForPlayer1().playCard(azul1).getColor());
+    }
 
-    @Test void gameEndsWhenPlayerHasNoCards(){
-        assertThrowsLike("Game Over", () -> newGame3().playCard(rojo2));
+    @Test void testPlayerDiscardCardsCorrectlyIfItIsMatchingNumber(){
+        assertEquals("rojo", newGameWithTwoReverseCardsForPlayer1().playCard(rojo2).getColor());
+
+    }
+
+    @Test void testCannotPLayCardPLayerDoesNotHave(){
+        assertThrowsLike("Player does not have card", () -> newGameWithTwoReverseCardsForPlayer1().playCard(azul2));
+    }
+
+    @Test void testCannotPlayNonMatchingCard(){
+        assertThrowsLike("Cannot play non-matching card", () -> newGameWithTwoReverseCardsForPlayer1().playCard(verdeReverse));
     }
 
 
-    @Test void test9CanDrawCard(){
-        assertEquals("rojo", newGame0().takeCard().getColor());
+    @Test void testCanDrawCard(){
+        assertEquals("rojo", newGameWithOneCardEachPlayer().takeCard().getColor());
+    }
+    @Test void testPlayer2CanPlayAfterPlayer1(){
+        assertEquals("rojo", newGameWithTwoReverseCardsForPlayer1().playCard(rojo2).playCard(rojo3).getColor());
     }
 
-    @Test void testIsNextPlayerTurnAfterDrawingCard(){
-        assertEquals(2, newGame11().takeCard().playCard(rojo2).getNumber());
+    @Test void testPlayer2TurnIfPlayer1TakesCard(){
+        assertEquals("azul", newGameWithTwoReverseCardsForPlayer1().takeCard().playCard(azul3).getColor());
     }
 
-    @Test void testcCanPlayDrawedUpCard(){
-        assertEquals("azul", newGame11().takeCard().playCard(rojo2).playCard(azul2).getColor());
+    @Test void testCantPlayCardWhenTheGameEnds(){
+        assertThrowsLike("Game is over", () -> newGamePlayer1Win().playCard(rojo2).playCard(rojo3));
+    }
+
+    @Test void testCantTakeCardWhenTheGameEnds(){
+        assertThrowsLike("Game is over", () -> newGamePlayer1Win().playCard(rojo2).takeCard());
+    }
+
+    @Test void testCanPlayCardShoutingUno(){
+        assertEquals("azul", newSimpleGame().playCardCallUno(amarillo1).playCard(azul1).getColor());
+    }
+    @Test void testPlayerDrawsTwoCardsIfFailToShoutUno(){
+        assertEquals("verde", newSimpleGame().playCard(amarillo1).playCard(azul1).playCard(azul2).playCard(azul3).playCard(verde3).getColor());
     }
 
 
-    @Test void test10Player1TurnSkip(){
-      assertEquals("azul", newGame4().playCard(azulSkip).
+    @Test void testCanPlayDrawedUpCard(){
+        assertEquals("azul", newSimpleGame().takeCard().playCard(rojo2).playCard(azul2).getColor());
+    }
+
+
+    @Test void testPlayer1TurnAfterSkip(){
+      assertEquals("azul", newGameWithTwoSkipCardsForPLayer1().playCard(azulSkip).
               playCard(azul6).getColor());
     }
 
-    @Test void test12playerCanPlayWildCardAnytime() {
-        assertEquals("yellow", newGame5().playCard(wild.beYellow()).getColor());
+    @Test void testReverseWorksAsSkipWhenTwoPlayers(){
+        assertEquals("azul", newGameWithTwoReverseCardsForPlayer1().playCard(azulReverse).
+                playCard(azul1).getColor());
     }
 
-    @Test void canPlaySkipTwice(){
-        assertEquals("verde", newGame4().playCard(azulSkip).
+    @Test void testDrawTwoWorksCorrectly(){
+        assertEquals("amarillo", newGameWIthTwoDrawTwoCardsForPlayer1().playCard(azulDrawTwo).
+                playCard(azul1).playCard(amarillo1).getColor());
+    }
+    @Test void testWildCardBecomesYellow() {
+        assertEquals("yellow", newGameWithWildCardForPlayer1().playCard(wild.beYellow()).getColor());
+    }
+    @Test void testWildCardBecomesBlue(){
+        assertEquals("blue", newGameWithWildCardForPlayer1().playCard(wild.beBlue()).getColor());
+    }
+    @Test void testWildCardBecomesGreen(){
+        assertEquals("green", newGameWithWildCardForPlayer1().playCard(wild.beGreen()).getColor());
+    }
+    @Test void testWildCardBecomesRed(){
+        assertEquals("red", newGameWithWildCardForPlayer1().playCard(wild.beRed()).getColor());
+    }
+
+
+    @Test void testCanPlaySkipTwice(){
+        assertEquals("verde", newGameWithTwoSkipCardsForPLayer1().playCard(azulSkip).
                 playCard(verdeSkip).getColor());
     }
 
-    @Test void canPlayReverseTwice(){
-        assertEquals("verde", newGame4().playCard(azulReverse).
-                playCard(verdeReverse).getColor());
-    }
-    @Test void drawTwoWorksCorrectly(){
-        assertEquals("verde", newGame4().playCard(azulReverse).
-                playCard(verdeReverse).getColor());
-    }
-    @Test void canPlayDrawTwoTwice(){
-        assertEquals("verde", newGame4().playCard(azulReverse).
+    @Test void testCanPlayReverseTwice(){
+        assertEquals("verde", newGameWithTwoReverseCardsForPlayer1().playCard(azulReverse).
                 playCard(verdeReverse).getColor());
     }
 
-//    @Test void test13playerCanPlaySkipCardToSkipNextPlayerTurn() {
-//        // Implement your test logic here
-//    }
+    @Test void testCanPlayDrawTwoTwice(){
+        assertEquals("rojo", newGameWIthTwoDrawTwoCardsForPlayer1().playCard(azulDrawTwo).
+                playCard(rojoDrawTwo).playCard(rojo1).playCard(rojo3).getColor());
+    }
 
-//    @Test void test14playerCanPlayReverseCardToReverseTurnOrder() {
-//        // Implement your test logic here
-//    }
-//
-//    @Test void test15playerCanPlayDrawTwoCardToMakeNextPlayerDrawTwoCards() {
-//        // Implement your test logic here
-//    }
 
-    //test6playerCanOnlyPlayMatchingCard: This test will ensure that a player can only play a card that matches the color or number of the card on top of the discard pile.
-            //test7playerDrawsCardIfNoMatchingCard: This test will ensure that if a player doesn't have a matching card, they must draw a card from the deck.
-    //test8gameEndsWhenPlayerHasNoCards: This test will ensure that the game ends when a player has no more cards.
-            //test9playerMustShoutUnoWhenOneCardLeft: This test will ensure that a player must shout "Uno" when they only have one card left.
-            //test10playerDrawsTwoCardsIfFailToShoutUno: This test will ensure that if a player fails to shout "Uno" when they only have one card left, they must draw two cards.
+    @Test void testSimpleGameWithThreePlayers(){
+        assertEquals("rojo", newGameThreePlayers().playCard(azul1).playCard(rojo1).playCard(rojo2).getColor());
+    }
+
+    @Test void testPlayer3TurnAfterPlayer2TakesCard(){
+        assertEquals("azul", newGameThreePlayers().playCard(azul1).takeCard().playCard(azul3).getColor());
+    }
+
+    @Test void testPLayer3TurnAfterSkip(){
+        assertEquals("azul", newGameThreePlayers().playCard(azulReverse).playCard(azul3).getColor());
+    }
+
+    @Test void testPlayer3TurnAfterDrawTwo(){
+        assertEquals("azul", newGameThreePlayers().playCard(azulDrawTwo).playCard(azul3).getColor());
+    }
+
+    @Test void testPlayer3TurnAfterReverse(){
+        assertEquals("azul", newGameThreePlayers().playCard(azulReverse).playCard(azul3).getColor());
+    }
+
+
 
     private UnoGame newGame(ArrayList<ArrayList<Card>> pile){
         return new UnoGame(pile);}
+    
 
-    private ArrayList<String> newCard(String color, String number, String type){
-        return new ArrayList<>(Arrays.asList(color, number, type));
 
+    private UnoGame newGameWithOneCardEachPlayer() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul2, rojo1)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
+        return newGame(pile);
     }
+
+    private UnoGame newSimpleGame() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul2, verde3,  rojo1)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo1, amarillo6)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul3, azul1)));
+        return newGame(pile);
+    }
+
+    private UnoGame newGameWithTwoReverseCardsForPlayer1() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(azul4, rojo1,azul2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul1,azulReverse,verdeReverse)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo3,azul3)));
+        return newGame(pile);
+    }
+
+    private UnoGame newGameWIthTwoDrawTwoCardsForPlayer1() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(amarillo1,azulReverse,wild,verde2,azul2)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo2,rojo1,azulDrawTwo,azul1, rojoDrawTwo)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo3)));
+        return newGame(pile);
+    }
+
+
+    private UnoGame newGamePlayer1Win() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(rojo1)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo3)));
+        return newGame(pile);
+    }
+
+    private UnoGame newGameWithTwoSkipCardsForPLayer1() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul2 )));
+        pile.add(new ArrayList<>(Arrays.asList(azulSkip,verdeSkip,azul6)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo5,azul1)));
+        return newGame(pile);
+    }
+
+
+private UnoGame newGameWithWildCardForPlayer1() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(rojo1, rojo4)));
+        pile.add(new ArrayList<>(Arrays.asList(wild, rojo3, azul2)));
+        pile.add(new ArrayList<>(Arrays.asList(rojo2, amarillo1, azul3)));
+        return newGame(pile);
+    }
+
+    private UnoGame newGameThreePlayers() {
+        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
+        pile.add(new ArrayList<>(Arrays.asList(wild,verde2,amarillo1,azul2)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo2,azulDrawTwo,azul1, azulReverse, azulSkip)));
+        pile.add(new ArrayList<>(Arrays.asList(amarillo3, rojo1, azul3)));
+        pile.add(new ArrayList<>(Arrays.asList(verdeDrawTwo,azul3, rojoSkip, rojo2)));
+        return newGame(pile);
+    }
+
+    private static void assertThrowsLike(String ErrorMessage, Executable bodyToEval) {
+        assertEquals(ErrorMessage,
+                assertThrows(Exception.class,  bodyToEval).getMessage());
+    }
+
 
 
     NumberCard rojo1 = new NumberCard(1, "rojo");
@@ -131,7 +228,6 @@ public class UnoTest {
     NumberCard azul4 = new NumberCard(4, "azul");
     NumberCard azul6 = new NumberCard(6, "azul");
 
-    NumberCard verde1 = new NumberCard(1, "verde");
     NumberCard verde2 = new NumberCard(2, "verde");
     NumberCard verde3 = new NumberCard(3, "verde");
 
@@ -144,81 +240,14 @@ public class UnoTest {
     SkipCard rojoSkip = new SkipCard("rojo");
     SkipCard azulSkip = new SkipCard("azul");
     SkipCard verdeSkip = new SkipCard("verde");
-    SkipCard amarilloSkip = new SkipCard("amarillo");
 
     DrawTwoCard rojoDrawTwo = new DrawTwoCard("rojo");
     DrawTwoCard azulDrawTwo = new DrawTwoCard("azul");
     DrawTwoCard verdeDrawTwo = new DrawTwoCard("verde");
-    DrawTwoCard amarilloDrawTwo = new DrawTwoCard("amarillo");
-    ReverseCard rojoReverse = new ReverseCard("rojo");
+
     ReverseCard azulReverse = new ReverseCard("azul");
-    ReverseCard amarilloReverse = new ReverseCard("amarillo");
+
     ReverseCard verdeReverse = new ReverseCard("verde");
     WildCard wild = new WildCard();
-
-
-
-    private UnoGame newGame0() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(azul2, rojo1)));
-        pile.add(new ArrayList<>(Arrays.asList(amarillo2)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
-        return newGame(pile);
-    }
-
-
-    private UnoGame newGame11() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(azul2, rojo1)));
-        pile.add(new ArrayList<>(Arrays.asList(amarillo2, amarillo6)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul3)));
-        return newGame(pile);
-    }
-    private UnoGame newGame1() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(azul4, rojo1,azul2)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul1,azulReverse,verdeReverse)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo3,azul3)));
-        return newGame(pile);
-    }
-
-    private UnoGame newGame2() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(azul2)));
-        pile.add(new ArrayList<>(Arrays.asList(amarillo6)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo3)));
-        return newGame(pile);
-    }
-
-
-    private UnoGame newGame3() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(rojo1)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo3)));
-        return newGame(pile);
-    }
-
-    private UnoGame newGame4() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(rojo2,azul2 )));
-        pile.add(new ArrayList<>(Arrays.asList(azulSkip,verdeSkip,azul6)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo5,azul1)));
-        return newGame(pile);
-    }
-
-
-private UnoGame newGame5() {
-        ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-        pile.add(new ArrayList<>(Arrays.asList(rojo1, rojo4)));
-        pile.add(new ArrayList<>(Arrays.asList(wild, rojo3)));
-        pile.add(new ArrayList<>(Arrays.asList(rojo2)));
-        return newGame(pile);
-    }
-
-    private static void assertThrowsLike(String ErrorMessage, Executable bodyToEval) {
-        assertEquals(ErrorMessage,
-                assertThrows(Exception.class,  bodyToEval).getMessage());
-    }
 
 }

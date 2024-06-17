@@ -1,54 +1,70 @@
 package uno;
 
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.HashMap;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class UnoGame {
-    protected HashMap<Integer, ArrayList<Card>> piles = new HashMap<>();
-    private String sentido = "counter-clockwise";
-    private Integer turn = 0;
-    private Card jugada;
-    private Estado estado = new Juega0(this);
+    private Direction direction = new CounterClockwiseDirection();
+    private ArrayList<Card> centerpile;
+    private Card pitcard;
+    private GameEstate estate;
+    private int cantJugadores;
+
 
     public UnoGame(ArrayList<ArrayList<Card>> pile){
-        pile.stream().forEach((p) -> {
-            piles.put(pile.indexOf(p) - 1, p);
-        });
-        this.jugada =  piles.get(-1).getLast();
+
+        this.centerpile = pile.getFirst();
+        pile.removeFirst();
+
+
+
+        ArrayList<GameEstate> estates = pile.stream()
+                .map(p -> new PlayerTurn(this, p))
+                .collect(Collectors.toCollection(ArrayList::new));
+        int size = estates.size();
+        for (int i = 0; i < estates.size(); i++){
+            estates.get(i).setRight(estates.get((i+1)%(size)));
+            estates.get(i).setLeft(estates.get((i - 1 + size) % size));
+        }
+
+        cantJugadores = size;
+
+        estate = estates.getFirst();
+
+        this.pitcard = centerpile.getLast();
+        pitcard.playCard(pitcard,this);
     }
     protected void reverse(){
-        if (Objects.equals(sentido, "clockwise"))
-        {
-            sentido = "counter-clockwise";
+        if (cantJugadores == 2){
+            this.nextTurn();
+            return;
         }
-        else
-        {
-            sentido = "clockwise";
-        }
-    }
-    protected void nextTurn(){
-        if (Objects.equals(sentido, "counter-clockwise"))
-        {
-            turn = (turn + 1) % (piles.size()-1);
-        }
-        else
-        {
-            turn = (turn + piles.size()-1) % (piles.size() -1);
-        }
-        //estado.nextTurn();
+        direction = direction.changeDirection();
     }
 
+    protected void nextTurn(){
+        direction.nextPlayer(this);
+    }
+
+    protected void nextTurnRight(){
+        estate = estate.getRight();
+    }
+
+    protected void nextTurnLeft(){
+        estate = estate.getLeft();
+    }
+
+
     protected UnoGame takeCard(){
-        piles.get(turn).add(piles.get(-1).getFirst());
-        this.nextTurn();
+        estate.takeCard(centerpile.getFirst());
+        centerpile.removeFirst();
+        direction.nextPlayer(this);
         return this;
     }
     protected void takeCard(int n){ // Take card para mas de una carta
         for (int i = 0; i < n; i++){
-            this.takeCard();
+            estate.takeCard(centerpile.getFirst());
+            centerpile.removeFirst();
         }
     }
 
@@ -58,13 +74,16 @@ public class UnoGame {
         int size = this.checkCards();
         if (size == 1){
             this.takeCard(2);
+            this.nextTurn();
         }
 
         //si no tiene cartas
         else if (size == 0){
             this.gameOver();
         }
-        this.nextTurn();
+        else{
+            this.nextTurn();
+        }
         return this;
 
     }
@@ -77,32 +96,27 @@ public class UnoGame {
 
 
     private void playCardInnerLogic(Card card) {
-        card.playCard(jugada,this);
-        piles.get(-1).add(card);
-        jugada = card;
-        piles.get(turn).remove(card);
+        estate.hasCard(card);
+        card.playCard(pitcard,this);
+        centerpile.add(card);
+        pitcard = card;
+        estate.removeCard(card);
     }
 
 
     protected int checkCards(){
-        return piles.get(turn).size();
+        return estate.cartas.size();
     }
     protected void gameOver() {
-        throw new RuntimeException("Game Over");
+        this.estate = new GameOverEstate();
     }
-
-    protected int turn(){
-        return turn;
-    }
-
-    public Card getJugada(){return jugada;}
 
     public String getColor(){
-        return jugada.getColor();
+        return pitcard.getColor();
     }
 
     public int getNumber(){
-        return jugada.getNumber();
+        return pitcard.getNumber();
     }
 
 }

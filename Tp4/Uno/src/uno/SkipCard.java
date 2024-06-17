@@ -1,7 +1,5 @@
 package uno;
 
-import java.util.Objects;
-
 public class SkipCard extends SpecialCard{
 
 
@@ -11,12 +9,12 @@ public class SkipCard extends SpecialCard{
 
     @Override
     protected void playCard(Card card, UnoGame uno) {
-        this.matchCard(card);
+        this.goesOnTop(card);
         uno.nextTurn();
     }
 
     @Override
-    protected void matchCard(Card card) {
+    protected void goesOnTop(Card card) {
 
         if(card.goesUnderSkip() || card.goesUnderColor(this.color)){
             return;

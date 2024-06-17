@@ -21,7 +21,7 @@ public class WildCard extends SpecialCard{
         return this;}
 
     @Override
-    protected void matchCard(Card card) {
+    protected void goesOnTop(Card card) {
         return;
     }
 }

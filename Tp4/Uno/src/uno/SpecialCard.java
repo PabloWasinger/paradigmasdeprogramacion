@@ -14,7 +14,7 @@ public abstract class SpecialCard extends Card {
 
    protected abstract void playCard(Card card, UnoGame uno);
 
-    protected abstract void matchCard(Card card);
+    protected abstract void goesOnTop(Card card);
     protected boolean goesUnderNumber(int number){
         return false;
     }

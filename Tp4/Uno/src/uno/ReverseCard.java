@@ -1,7 +1,5 @@
 package uno;
 
-import java.util.Objects;
-
 public class ReverseCard extends SpecialCard{
 
     public ReverseCard(String color) {
@@ -9,12 +7,12 @@ public class ReverseCard extends SpecialCard{
     }
     @Override
     protected void playCard(Card card, UnoGame uno) {
-        this.matchCard(card);
+        this.goesOnTop(card);
         uno.reverse();
     }
 
     @Override
-    protected void matchCard(Card card) {
+    protected void goesOnTop(Card card) {
 
         if(card.goesUnderReverse() || card.goesUnderColor(this.color)){
             return;
